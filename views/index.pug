@@ -1,0 +1,79 @@
+extends layout
+
+block content
+  .header
+    .search
+      form.search__form
+        input.search__input
+      .search__result
+    .user-info
+      .sign-in Sign in
+  .content
+    .friend-list
+    .room-list
+    .chat
+      .chat__header
+        .chat__room-info
+          .chat__room-name
+          .chat__room-detail
+            .chat__user-icon
+              i.fas.fa-user
+            .chat__user-number
+        .chat__room-option
+          button.button.button--leave-room Leave
+      .chat__body
+      .chat__footer
+        form.chat__form(action="/")
+          input.chat__input
+  .modal
+    .modal__dialog
+      .modal__content-container
+        .modal__content
+          .modal__header
+            .modal__title Sign In
+          .modal__body
+            form.form.form--sign-in
+              .form__member
+                input.form__input(
+                  type="text"
+                  name="email"
+                  placeholder="email"
+                  required
+                )
+              .form__member
+                input.form__input(
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  required
+                )
+              button.button.button--submit(type="submit") Sign in
+          .modal__content-slider.modal__content-slider--next Sign up #{'>'}
+        .modal__content
+          .modal__header
+            .modal__title Sign Up
+          .modal__body
+            form.form.form--sign-up
+              .form__member
+                input.form__input(
+                  type="text"
+                  name="email"
+                  placeholder="email"
+                  required
+                )
+              .form__member
+                input.form__input(
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  required
+                )
+              .form__member
+                input.form__input(
+                  type="text"
+                  name="nickname"
+                  placeholder="nickname"
+                  required
+                )
+              button.button.button--submit(type="submit") Sign up
+          .modal__content-slider.modal__content-slider--back #{'<'} Sign in
