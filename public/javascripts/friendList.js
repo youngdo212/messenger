@@ -6,6 +6,7 @@ export default class FriendList {
     this.$selectedFriend = null;
     this.selectedFriendId = '';
     this.unselectWithThisBind = this.unselect.bind(this);
+    this.friends = [];
     this._registerAllEventListeners();
   }
 
@@ -47,6 +48,7 @@ export default class FriendList {
   }
 
   add(friend) {
+    this.friends.push(friend);
     this.$friendList.insertAdjacentHTML('beforeend', template.friend(friend));
   }
 
@@ -80,6 +82,14 @@ export default class FriendList {
 
   remove(friend) {
     const $friend = this.$friendList.querySelector(`.friend[data-id="${friend._id}"]`);
+    
+    this.friends = this.friends.filter((eachFriend) => {
+      return eachFriend._id !== friend._id;
+    })
     this.$friendList.removeChild($friend);
+  }
+
+  getAllFriends() {
+    return this.friends.slice();
   }
 }

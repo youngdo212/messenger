@@ -85,4 +85,13 @@ const message = ({type, sender, createdAt, text}) => {
   <div class="chat__status-log">${text}</div>`;
 }
 
-export default {userInfo, resultItem, friendrequest, friend, room, message}
+const selectedUser = ({_id, nickname}) => {
+  return `
+  <div class="selected-user" data-id="${_id}">
+    <input class="selected-user__checkbox" type="checkbox"></input>
+    <label class="selected-user__nickname">${nickname}</label>
+  </div>
+  `;
+}
+
+export default {userInfo, resultItem, friendrequest, friend, room, message, selectedUser}

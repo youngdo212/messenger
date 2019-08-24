@@ -5,6 +5,7 @@ import FriendrequestList from './friendrequestList.js';
 import FriendList from './FriendList.js';
 import RoomList from './roomList.js';
 import Chat from './chat.js';
+import SelectedUserList from './selectedUserList.js';
 
 let currentUser = null;
 
@@ -60,6 +61,14 @@ const chat = new Chat({
 
 roomList.onRoomSelected(chat.load.bind(chat));
 
+const selectedUserList = new SelectedUserList({
+  selectedUserList: document.querySelector('.selected-user-list'),
+});
+
+selectedUserList.onLoadUsers(friendList.getAllFriends.bind(friendList));
+selectedUserList.onConfirmButtonClicked(chat.inviteUsers.bind(chat));
+chat.onInviteButtonClick(selectedUserList.open.bind(selectedUserList));
+
 messenger.onUserStateChanged((user) => {
   if(!user) return location.replace('http://localhost:3001');
   
@@ -83,7 +92,6 @@ messenger.onUserStateChanged((user) => {
   currentUser.onFriendRemoved(friendList.remove.bind(friendList));
   currentUser.onFriendPresenceChanged((user) => {
     alert(`${user.nickname} is ${user.isPresent ? 'logined!' : 'logout:('}`);
-    console.log(user);
   });
   currentUser.onRoomAdded(roomList.add.bind(roomList));
   chat.onMessageSubmitted(currentUser.sendMessage.bind(currentUser));

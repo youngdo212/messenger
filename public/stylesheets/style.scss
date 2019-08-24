@@ -713,6 +713,52 @@ body {
   }
 }
 
+.selected-user-list {
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 300px; height: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+  display: none;
+  background: #fff;
+
+  &--active {
+    display: block;
+  }
+}
+
+.selected-user-wrap {
+  width: 100%; height: 90%;
+  overflow: scroll;
+}
+
+.selected-user {
+  box-sizing: border-box;
+  width: 100%; height: 40px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  text-align: left;
+  margin-bottom: 10px;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 0px; height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.selected-user__checkbox {
+  margin-right: 10px;
+}
+
+.selected-user__nickname {
+  font-size: 1.2rem;
+}
+
 .button {
   &--close {
     
@@ -733,7 +779,7 @@ body {
     }
   }
 
-  &--friendrequest, &--accept-friend, &--decline-friend, &--message, &--remove-friend, &--leave-room {
+  &--friendrequest, &--accept-friend, &--decline-friend, &--message, &--remove-friend, &--invite-user, &--leave-room, &--confirm {
     display: inline-block;
     box-sizing: border-box;
     height: 25px;
@@ -768,5 +814,13 @@ body {
     &:hover {
       box-shadow: 1px 1px 5px #b0b0b0;
     }
+  }
+
+  &--invite-user {
+    margin-right: 20px;
+  }
+
+  &--confirm {
+    margin-top: 10px;
   }
 }

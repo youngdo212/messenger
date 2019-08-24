@@ -9,6 +9,7 @@ export default class Chat {
     this.$form = this.$chat.querySelector('.chat__form');
     this.$input = this.$chat.querySelector('.chat__input');
     this.$buttonLeaveRoom = this.$chat.querySelector('.button--leave-room');
+    this.$buttonInviteUser = this.$chat.querySelector('.button--invite-user');
     this.currentRoom = null;
     this.openRoom = null;
     this.closeRoom = null;
@@ -47,6 +48,12 @@ export default class Chat {
     })
   }
 
+  onInviteButtonClick(callback) {
+    this.$buttonInviteUser.addEventListener('click', () => {
+      callback();
+    })
+  }
+
   load(room) {
     this.currentRoom && this.closeRoom(this.currentRoom);
     this.render(room);
@@ -72,5 +79,11 @@ export default class Chat {
     this.$roomName.textContent = room.users.map((user) => user.nickname).join(', ');
     this.$userNumber.textContent = room.users.length;
     this.currentRoom = room;
+  }
+  
+  inviteUsers(users) {
+    users.forEach((user) => {
+      this.currentRoom.addUser(user._id);
+    })
   }
 }
