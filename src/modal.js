@@ -1,5 +1,5 @@
 export default class Modal {
-  constructor({modal, openButton}) {
+  constructor({ modal, openButton }) {
     this.$modal = modal;
     this.$openButton = openButton;
     this.$modalDialog = this.$modal.querySelector('.modal__dialog');
@@ -25,15 +25,17 @@ export default class Modal {
       this.$modalContentContainer.classList.remove('modal__content-container--next');
     });
   }
-  
+
   open() {
-    // naming 
-    const checkOutside = ({target}) => {
-      if(this.$modalDialog.contains(target)) return window.addEventListener('click', checkOutside, {
-        once: true,
-        capture: true,
-      });
-  
+    // naming
+    const checkOutside = ({ target }) => {
+      if (this.$modalDialog.contains(target)) {
+        return window.addEventListener('click', checkOutside, {
+          once: true,
+          capture: true,
+        });
+      }
+
       this.close();
     };
 
@@ -54,11 +56,11 @@ export default class Modal {
   onUserCreated(callback) {
     this.$signUpForm.addEventListener('submit', (e) => {
       e.preventDefault();
-    
+
       const email = this.$signUpInputEmail.value;
       const password = this.$signUpInputPassword.value;
       const nickname = this.$signUpInputNickname.value;
-    
+
       callback(email, password, nickname)
         .then(this.close.bind(this))
         .catch((error) => console.error.bind(console, error));
@@ -68,13 +70,13 @@ export default class Modal {
   onUserSignedIn(callback) {
     this.$signInForm.addEventListener('submit', (e) => {
       e.preventDefault();
-    
+
       const email = this.$signInInputEmail.value;
       const password = this.$signInInputPassword.value;
-    
+
       callback(email, password)
-      .then(this.close.bind(this))
-      .catch((error) => console.error.bind(console, error));
+        .then(this.close.bind(this))
+        .catch((error) => console.error.bind(console, error));
     });
   }
 }

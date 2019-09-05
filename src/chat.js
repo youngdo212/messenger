@@ -1,7 +1,7 @@
-import template from "./template.js";
+import template from './template';
 
 export default class Chat {
-  constructor({chat}) {
+  constructor({ chat }) {
     this.$chat = chat;
     this.$chatBody = this.$chat.querySelector('.chat__body');
     this.$roomName = this.$chat.querySelector('.chat__room-name');
@@ -21,11 +21,11 @@ export default class Chat {
       const text = this.$input.value;
       this.$input.value = '';
 
-      if(text === '') return;
+      if (text === '') return;
 
       callback({
         room: this.currentRoom,
-        text: text,
+        text,
       });
     });
   }
@@ -40,7 +40,7 @@ export default class Chat {
 
   onLeaveRoomButtonClicked(callback) {
     this.$buttonLeaveRoom.addEventListener('click', () => {
-      callback(this.currentRoom).catch(error => console.error.bind(console, error));
+      callback(this.currentRoom).catch((error) => console.error.bind(console, error));
       this.closeRoom(this.currentRoom);
       this.$chatBody.innerHTML = '';
       this.$chat.classList.remove('chat--active');
@@ -80,7 +80,7 @@ export default class Chat {
     this.$userNumber.textContent = room.users.length;
     this.currentRoom = room;
   }
-  
+
   inviteUsers(users) {
     users.forEach((user) => {
       this.currentRoom.addUser(user._id);

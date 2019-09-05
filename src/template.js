@@ -1,7 +1,6 @@
-import {formatDateToDate, formatDateToTime} from './helper.js';
+import { formatDateToDate, formatDateToTime } from './helper';
 
-const userInfo = ({nickname}) => {
-  return `
+const userInfo = ({ nickname }) => `
   <div class="friendrequest-toggle">Friend requests
     <div class="friendrequest-badge"></div>
   </div>
@@ -14,10 +13,8 @@ const userInfo = ({nickname}) => {
   <div class="delimeter">|</div>
   <div class="sign-out">Sign out</div>
   `;
-};
 
-const resultItem = ({_id, email, nickname}) => {
-  return `
+const resultItem = ({ _id, email, nickname }) => `
   <div class="search__user-item" data-id="${_id}">
     <div class="search__user-name">${nickname}</div>
     <div class="search__user-email">${email}</div>
@@ -25,10 +22,8 @@ const resultItem = ({_id, email, nickname}) => {
       <button class="button button--friendrequest">Add</button>
     </div>
   </div>`;
-};
 
-const friendrequest = ({_id, from: sender}) => {
-  return `
+const friendrequest = ({ _id, from: sender }) => `
   <div class="friendrequest" data-id="${_id}">
     <div class="friendrequest__nickname">${sender.nickname}</div>
     <div class="friendrequest__buttons">
@@ -36,10 +31,8 @@ const friendrequest = ({_id, from: sender}) => {
       <button class="button button--decline-friend" data-answer="decline">Decline</button>
     </div>
   </div>`;
-};
 
-const friend = ({_id, nickname}) => {
-  return `
+const friend = ({ _id, nickname }) => `
     <div class="friend" data-id="${_id}">
       <div class="friend-content">
         <div class="friend__picture"></div>
@@ -55,23 +48,23 @@ const friend = ({_id, nickname}) => {
         </div>
       </div>
     </div>`;
-};
 
-const room = ({_id, users, lastMessage, createdAt}) => {
-  return `
+const room = ({
+  _id, users, lastMessage, createdAt,
+}) => `
   <div class="room" data-id="${_id}">
     <div class="room__picture"></div>
     <div class="room__info"><div class="room__info-center">
-        <div class="room__name">${users.map(user => user.nickname).join(', ')}</div>
+        <div class="room__name">${users.map((user) => user.nickname).join(', ')}</div>
         <div class="room__last-message">${lastMessage ? lastMessage.text : 'new room'}</div>
       </div>
       <div class="room__last-message-date">${lastMessage ? formatDateToDate(new Date(lastMessage.createdAt)) : formatDateToDate(new Date(createdAt))}</div>
     </div>
   </div>`;
-};
 
-const message = ({type, sender, createdAt, text}) => {
-  return type === 'text' ? `
+const message = ({
+  type, sender, createdAt, text,
+}) => (type === 'text' ? `
   <div class="chat__message">
     <div class="chat__message-picture"></div>
     <div class="chat__message-content">
@@ -82,16 +75,15 @@ const message = ({type, sender, createdAt, text}) => {
       <div class="chat__message-body">${text}</div>
     </div>
   </div>` : `
-  <div class="chat__status-log">${text}</div>`;
-};
+  <div class="chat__status-log">${text}</div>`);
 
-const selectedUser = ({_id, nickname}) => {
-  return `
+const selectedUser = ({ _id, nickname }) => `
   <div class="selected-user" data-id="${_id}">
     <input class="selected-user__checkbox" type="checkbox"></input>
     <label class="selected-user__nickname">${nickname}</label>
   </div>
   `;
-};
 
-export default {userInfo, resultItem, friendrequest, friend, room, message, selectedUser};
+export default {
+  userInfo, resultItem, friendrequest, friend, room, message, selectedUser,
+};

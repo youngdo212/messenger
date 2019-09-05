@@ -12,4 +12,4 @@ const formatDateToTime = (dateObject) => {
   return `${hours}:${minutes}`;
 };
 
-export {formatDateToDate, formatDateToTime};
+export { formatDateToDate, formatDateToTime };

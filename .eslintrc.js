@@ -3,7 +3,7 @@ module.exports = {
         "browser": true,
         "es6": true
     },
-    "extends": "eslint:recommended",
+    "extends": "airbnb-base",
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly",
@@ -14,6 +14,11 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-        "semi": ["error", "always"],
+        "no-param-reassign": ["error", { "props": false }],
+        "no-underscore-dangle": "off",
+        "no-unused-expressions": ["warn", { "allowShortCircuit": true }],
+        "max-len": ["error", { "code": 200 }],
+        "no-restricted-globals": "warn",
+        "consistent-return": "warn"
     }
 };

@@ -1,7 +1,7 @@
-import template from './template.js';
+import template from './template';
 
 export default class SelectedUserList {
-  constructor({selectedUserList}) {
+  constructor({ selectedUserList }) {
     this.$selectedUserList = selectedUserList;
     this.$selectedUserWrap = this.$selectedUserList.querySelector('.selected-user-wrap');
     this.$confirmButton = this.$selectedUserList.querySelector('.button--confirm');
@@ -12,12 +12,12 @@ export default class SelectedUserList {
   }
 
   _registerAllEventListeners() {
-    this.$selectedUserList.addEventListener('click', ({target}) => {
-      if(target.tagName !== 'INPUT') return;
+    this.$selectedUserList.addEventListener('click', ({ target }) => {
+      if (target.tagName !== 'INPUT') return;
 
       const $selectedUser = target.closest('.selected-user');
       const userId = $selectedUser.dataset.id;
-      
+
       target.checked ? this.selectUser(userId) : this.unselectUser(userId);
     });
   }
@@ -45,9 +45,7 @@ export default class SelectedUserList {
   }
 
   unselectUser(userId) {
-    this.selectedUsers = this.selectedUsers.filter((user) => {
-      return user._id !== userId;
-    });
+    this.selectedUsers = this.selectedUsers.filter((user) => user._id !== userId);
   }
 
   close() {

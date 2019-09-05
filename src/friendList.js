@@ -1,7 +1,7 @@
-import template from './template.js';
+import template from './template';
 
 export default class FriendList {
-  constructor({friendlist}) {
+  constructor({ friendlist }) {
     this.$friendList = friendlist;
     this.$selectedFriend = null;
     this.selectedFriendId = '';
@@ -14,7 +14,7 @@ export default class FriendList {
     this.$friendList.addEventListener('click', (e) => {
       e.stopPropagation();
 
-      if(e.target.className !== 'friend__picture') return;
+      if (e.target.className !== 'friend__picture') return;
 
       const $friend = e.target.closest('.friend');
       this.select($friend);
@@ -25,9 +25,9 @@ export default class FriendList {
     this.$friendList.addEventListener('click', (e) => {
       e.stopPropagation();
 
-      if(e.target.tagName !== 'BUTTON') return;
-      if(e.target.dataset.behavior !== 'remove') return;
-      if(!confirm('정말 친구 관계를 끊으시겠습니까?')) return this.unselectAndRemoveListener();
+      if (e.target.tagName !== 'BUTTON') return;
+      if (e.target.dataset.behavior !== 'remove') return;
+      if (!confirm('정말 친구 관계를 끊으시겠습니까?')) return this.unselectAndRemoveListener();
 
       callback(this.selectedFriendId);
       this.unselectAndRemoveListener();
@@ -39,8 +39,8 @@ export default class FriendList {
     this.$friendList.addEventListener('click', (e) => {
       e.stopPropagation();
 
-      if(e.target.tagName !== 'BUTTON') return;
-      if(e.target.dataset.behavior !== 'message') return;
+      if (e.target.tagName !== 'BUTTON') return;
+      if (e.target.dataset.behavior !== 'message') return;
 
       callback(this.selectedFriendId);
       this.unselectAndRemoveListener();
@@ -53,8 +53,8 @@ export default class FriendList {
   }
 
   select($friend) {
-    if(this.$selectedFriend === null) return this.selectFirst($friend);
-    if(this.$selectedFriend === $friend) return this.unselectAndRemoveListener();
+    if (this.$selectedFriend === null) return this.selectFirst($friend);
+    if (this.$selectedFriend === $friend) return this.unselectAndRemoveListener();
 
     this.unselect();
     $friend.classList.add('friend--selected');
@@ -66,12 +66,12 @@ export default class FriendList {
     $friend.classList.add('friend--selected');
     this.$selectedFriend = $friend;
     this.selectedFriendId = $friend.dataset.id;
-    window.addEventListener('click', this.unselectWithThisBind, {once: true});
+    window.addEventListener('click', this.unselectWithThisBind, { once: true });
   }
 
   unselectAndRemoveListener() {
     this.unselect();
-    window.removeEventListener('click', this.unselectWithThisBind, {once: true});
+    window.removeEventListener('click', this.unselectWithThisBind, { once: true });
   }
 
   unselect() {
@@ -82,10 +82,8 @@ export default class FriendList {
 
   remove(friend) {
     const $friend = this.$friendList.querySelector(`.friend[data-id="${friend._id}"]`);
-    
-    this.friends = this.friends.filter((eachFriend) => {
-      return eachFriend._id !== friend._id;
-    });
+
+    this.friends = this.friends.filter((eachFriend) => eachFriend._id !== friend._id);
     this.$friendList.removeChild($friend);
   }
 

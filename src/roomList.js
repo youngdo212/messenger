@@ -1,16 +1,16 @@
-import template from './template.js';
+import template from './template';
 
 export default class RoomList {
-  constructor({roomList}) {
+  constructor({ roomList }) {
     this.$roomList = roomList;
     this.rooms = {};
   }
 
   onRoomSelected(callback) {
-    this.$roomList.addEventListener('click', ({target}) => {
+    this.$roomList.addEventListener('click', ({ target }) => {
       const $room = target.closest('.room');
 
-      if(!$room) return;
+      if (!$room) return;
 
       const room = this.rooms[$room.dataset.id];
 
@@ -37,7 +37,7 @@ export default class RoomList {
     const $roomName = $room.querySelector('.room__name');
     const $lastMessage = $room.querySelector('.room__last-message');
 
-    $roomName.textContent = room.users.map(user => user.nickname).join(', ');
+    $roomName.textContent = room.users.map((user) => user.nickname).join(', ');
     $lastMessage.textContent = room.lastMessage.text;
     this.rooms[roomId] = room;
   }

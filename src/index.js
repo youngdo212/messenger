@@ -1,11 +1,11 @@
-import template from './template.js';
-import Modal from './modal.js';
-import Search from './search.js';
-import FriendrequestList from './friendrequestList.js';
-import FriendList from './FriendList.js';
-import RoomList from './roomList.js';
-import Chat from './chat.js';
-import SelectedUserList from './selectedUserList.js';
+import template from './template';
+import Modal from './modal';
+import Search from './search';
+import FriendrequestList from './friendrequestList';
+import FriendList from './friendList';
+import RoomList from './roomList';
+import Chat from './chat';
+import SelectedUserList from './selectedUserList';
 
 let currentUser = null;
 
@@ -70,8 +70,8 @@ selectedUserList.onConfirmButtonClicked(chat.inviteUsers.bind(chat));
 chat.onInviteButtonClick(selectedUserList.open.bind(selectedUserList));
 
 messenger.onUserStateChanged((user) => {
-  if(!user) return location.replace('http://localhost:3001');
-  
+  if (!user) return location.replace('http://localhost:3001');
+
   userInfo.innerHTML = template.userInfo(user);
 
   friendrequestList = new FriendrequestList({
@@ -90,8 +90,8 @@ messenger.onUserStateChanged((user) => {
   currentUser.onFriendRequested(friendrequestList.add.bind(friendrequestList));
   currentUser.onFriendAdded(friendList.add.bind(friendList));
   currentUser.onFriendRemoved(friendList.remove.bind(friendList));
-  currentUser.onFriendPresenceChanged((user) => {
-    alert(`${user.nickname} is ${user.isPresent ? 'logined!' : 'logout:('}`);
+  currentUser.onFriendPresenceChanged((friend) => {
+    alert(`${friend.nickname} is ${friend.isPresent ? 'logined!' : 'logout:('}`);
   });
   currentUser.onRoomAdded(roomList.add.bind(roomList));
   chat.onMessageSubmitted(currentUser.sendMessage.bind(currentUser));

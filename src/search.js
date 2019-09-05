@@ -1,7 +1,7 @@
-import template from './template.js';
+import template from './template';
 
 export default class Search {
-  constructor({search}) {
+  constructor({ search }) {
     this.$search = search;
     this.$searchForm = this.$search.querySelector('form');
     this.$input = this.$search.querySelector('input');
@@ -16,8 +16,8 @@ export default class Search {
 
     // something wrong. check
     this.$search.addEventListener('click', () => {
-      const checkOutside = ({target}) => {
-        if(this.$search.contains(target)) return;
+      const checkOutside = ({ target }) => {
+        if (this.$search.contains(target)) return;
 
         window.removeEventListener('click', checkOutside, true);
         this.close();
@@ -26,10 +26,10 @@ export default class Search {
       window.addEventListener('click', checkOutside, true);
     });
   }
-  
+
   onValueRequested(callback) {
-    this.$input.addEventListener('input', async ({target: {value}}) => {
-      if(value === '') return this.close();
+    this.$input.addEventListener('input', async ({ target: { value } }) => {
+      if (value === '') return this.close();
 
       this.execute();
 
@@ -41,12 +41,12 @@ export default class Search {
   }
 
   onFriendRequested(callback) {
-    this.$result.addEventListener('click', ({target}) => {
-      if(target.tagName !== 'BUTTON') return;
+    this.$result.addEventListener('click', ({ target }) => {
+      if (target.tagName !== 'BUTTON') return;
 
       const $userItem = target.closest('.search__user-item');
       const userId = $userItem.dataset.id;
-      
+
       callback(userId);
     });
   }
