@@ -16,9 +16,9 @@ export default class FriendList {
 
       if(e.target.className !== 'friend__picture') return;
 
-      const $friend = e.target.closest('.friend')
+      const $friend = e.target.closest('.friend');
       this.select($friend);
-    })
+    });
   }
 
   onFriendRemoved(callback) {
@@ -31,7 +31,7 @@ export default class FriendList {
 
       callback(this.selectedFriendId);
       this.unselectAndRemoveListener();
-    })
+    });
   }
 
   // refactoring - duplication code above
@@ -44,7 +44,7 @@ export default class FriendList {
 
       callback(this.selectedFriendId);
       this.unselectAndRemoveListener();
-    })
+    });
   }
 
   add(friend) {
@@ -85,7 +85,7 @@ export default class FriendList {
     
     this.friends = this.friends.filter((eachFriend) => {
       return eachFriend._id !== friend._id;
-    })
+    });
     this.$friendList.removeChild($friend);
   }
 

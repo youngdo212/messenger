@@ -15,7 +15,7 @@ export default class RoomList {
       const room = this.rooms[$room.dataset.id];
 
       callback(room);
-    })
+    });
   }
 
   add(room) {

@@ -1,4 +1,4 @@
-import template from './template.js'
+import template from './template.js';
 
 export default class SelectedUserList {
   constructor({selectedUserList}) {
@@ -19,7 +19,7 @@ export default class SelectedUserList {
       const userId = $selectedUser.dataset.id;
       
       target.checked ? this.selectUser(userId) : this.unselectUser(userId);
-    })
+    });
   }
 
   onLoadUsers(callback) {
@@ -30,7 +30,7 @@ export default class SelectedUserList {
     this.$confirmButton.addEventListener('click', () => {
       callback(this.selectedUsers);
       this.close();
-    })
+    });
   }
 
   open() {

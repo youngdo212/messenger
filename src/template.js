@@ -14,7 +14,7 @@ const userInfo = ({nickname}) => {
   <div class="delimeter">|</div>
   <div class="sign-out">Sign out</div>
   `;
-}
+};
 
 const resultItem = ({_id, email, nickname}) => {
   return `
@@ -24,8 +24,8 @@ const resultItem = ({_id, email, nickname}) => {
     <div class="search__user-relationship">
       <button class="button button--friendrequest">Add</button>
     </div>
-  </div>`
-}
+  </div>`;
+};
 
 const friendrequest = ({_id, from: sender}) => {
   return `
@@ -35,8 +35,8 @@ const friendrequest = ({_id, from: sender}) => {
       <button class="button button--accept-friend" data-answer="accept">Accept</button>
       <button class="button button--decline-friend" data-answer="decline">Decline</button>
     </div>
-  </div>`
-}
+  </div>`;
+};
 
 const friend = ({_id, nickname}) => {
   return `
@@ -55,7 +55,7 @@ const friend = ({_id, nickname}) => {
         </div>
       </div>
     </div>`;
-}
+};
 
 const room = ({_id, users, lastMessage, createdAt}) => {
   return `
@@ -68,7 +68,7 @@ const room = ({_id, users, lastMessage, createdAt}) => {
       <div class="room__last-message-date">${lastMessage ? formatDateToDate(new Date(lastMessage.createdAt)) : formatDateToDate(new Date(createdAt))}</div>
     </div>
   </div>`;
-}
+};
 
 const message = ({type, sender, createdAt, text}) => {
   return type === 'text' ? `
@@ -83,7 +83,7 @@ const message = ({type, sender, createdAt, text}) => {
     </div>
   </div>` : `
   <div class="chat__status-log">${text}</div>`;
-}
+};
 
 const selectedUser = ({_id, nickname}) => {
   return `
@@ -92,6 +92,6 @@ const selectedUser = ({_id, nickname}) => {
     <label class="selected-user__nickname">${nickname}</label>
   </div>
   `;
-}
+};
 
-export default {userInfo, resultItem, friendrequest, friend, room, message, selectedUser}
+export default {userInfo, resultItem, friendrequest, friend, room, message, selectedUser};

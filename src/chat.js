@@ -26,8 +26,8 @@ export default class Chat {
       callback({
         room: this.currentRoom,
         text: text,
-      })
-    })
+      });
+    });
   }
 
   onRoomOpened(callback) {
@@ -45,13 +45,13 @@ export default class Chat {
       this.$chatBody.innerHTML = '';
       this.$chat.classList.remove('chat--active');
       this.currentRoom = null;
-    })
+    });
   }
 
   onInviteButtonClick(callback) {
     this.$buttonInviteUser.addEventListener('click', () => {
       callback();
-    })
+    });
   }
 
   load(room) {
@@ -60,7 +60,7 @@ export default class Chat {
     this.openRoom(room, {
       onMessage: this.addMessage.bind(this),
       onUpdate: this.updateRoom.bind(this),
-    })
+    });
     this.currentRoom = room;
   }
 
@@ -84,6 +84,6 @@ export default class Chat {
   inviteUsers(users) {
     users.forEach((user) => {
       this.currentRoom.addUser(user._id);
-    })
+    });
   }
 }

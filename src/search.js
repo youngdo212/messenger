@@ -15,16 +15,16 @@ export default class Search {
     });
 
     // something wrong. check
-    this.$search.addEventListener('click', (e) => {
+    this.$search.addEventListener('click', () => {
       const checkOutside = ({target}) => {
         if(this.$search.contains(target)) return;
 
         window.removeEventListener('click', checkOutside, true);
         this.close();
-      }
+      };
 
       window.addEventListener('click', checkOutside, true);
-    })
+    });
   }
   
   onValueRequested(callback) {

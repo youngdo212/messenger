@@ -20,14 +20,14 @@ messenger.initializeApp().catch((error) => console.error.bind(console, error));
 const modal = new Modal({
   modal: document.querySelector('.modal'),
   openButton: document.querySelector('.sign-in'),
-})
+});
 
 modal.onUserCreated(messenger.createUser.bind(messenger));
 modal.onUserSignedIn(messenger.signIn.bind(messenger));
 
 const search = new Search({
   search: document.querySelector('.search'),
-})
+});
 
 search.onValueRequested(messenger.searchUsers.bind(messenger));
 search.onFriendRequested((userId) => {
@@ -39,17 +39,17 @@ let signOutButton = null;
 
 const friendList = new FriendList({
   friendlist: document.querySelector('.friend-list'),
-})
+});
 
 friendList.onFriendRemoved((friendId) => {
   currentUser.removeFriend(friendId).catch((error) => console.error(console, error));
-})
+});
 friendList.onRoomCreated((friendId) => {
   currentUser.createRoom({
     inviteUserIds: [friendId],
   })
     .catch((error) => console.error(console, error));
-})
+});
 
 const roomList = new RoomList({
   roomList: document.querySelector('.room-list'),
@@ -57,7 +57,7 @@ const roomList = new RoomList({
 
 const chat = new Chat({
   chat: document.querySelector('.chat'),
-})
+});
 
 roomList.onRoomSelected(chat.load.bind(chat));
 
@@ -72,7 +72,7 @@ chat.onInviteButtonClick(selectedUserList.open.bind(selectedUserList));
 messenger.onUserStateChanged((user) => {
   if(!user) return location.replace('http://localhost:3001');
   
-  userInfo.innerHTML = template.userInfo(user)
+  userInfo.innerHTML = template.userInfo(user);
 
   friendrequestList = new FriendrequestList({
     friendrequestList: document.querySelector('.friendrequest-list'),
@@ -100,7 +100,7 @@ messenger.onUserStateChanged((user) => {
   chat.onLeaveRoomButtonClicked(currentUser.leaveRoom.bind(currentUser));
   currentUser.onMessage((message) => {
     alert(`(currentUser.onMessage)${message.sender.nickname} : ${message.type === 'text' ? message.text : message.type}`);
-  })
+  });
   currentUser.onRoomRemoved(roomList.remove.bind(roomList));
   currentUser.onRoomUpdated(roomList.update.bind(roomList));
 });

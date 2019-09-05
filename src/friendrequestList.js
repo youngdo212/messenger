@@ -17,7 +17,7 @@ constructor({friendrequestList, toggle, badge}) {
 
       this.open();
       e.stopPropagation();
-    })
+    });
 
     this.$friendrequestList.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -28,7 +28,7 @@ constructor({friendrequestList, toggle, badge}) {
       
       this.response($friendrequest, answer);
       this.remove($friendrequest);
-    })
+    });
   }
 
   open() {

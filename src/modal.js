@@ -35,7 +35,7 @@ export default class Modal {
       });
   
       this.close();
-    }
+    };
 
     this.$modal.classList.add('modal--active');
     window.addEventListener('click', checkOutside, {
