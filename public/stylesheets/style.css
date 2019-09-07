@@ -100,10 +100,10 @@ body {
     height: 100%;
     vertical-align: middle; }
 
-.user-info {
+.current-user-info {
   float: right;
   height: 100%; }
-  .user-info::before {
+  .current-user-info::before {
     content: '';
     display: inline-block;
     width: 0px;
@@ -111,20 +111,30 @@ body {
     vertical-align: middle; }
 
 .sign-in, .sign-out {
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer; }
+  display: none;
+  float: right;
+  height: 100%;
+  cursor: pointer;
+  vertical-align: middle; }
   .sign-in:hover, .sign-out:hover {
     text-decoration: underline; }
+  .sign-in::before, .sign-out::before {
+    content: '';
+    display: inline-block;
+    width: 0px;
+    height: 100%;
+    vertical-align: middle; }
+  .sign-in--active, .sign-out--active {
+    display: block; }
 
-.user {
+.current-user {
   display: inline-block;
   vertical-align: middle;
   cursor: pointer; }
-  .user:hover .user__nickname {
+  .current-user:hover .current-user__nickname {
     text-decoration: underline; }
 
-.user__picture {
+.current-user__picture {
   display: inline-block;
   width: 25px;
   height: 25px;
@@ -132,7 +142,7 @@ body {
   margin-right: 7px;
   vertical-align: middle; }
 
-.user__nickname {
+.current-user__nickname {
   display: inline-block;
   vertical-align: middle; }
 

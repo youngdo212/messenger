@@ -19,6 +19,7 @@ module.exports = {
         "no-unused-expressions": ["warn", { "allowShortCircuit": true }],
         "max-len": ["error", { "code": 200 }],
         "no-restricted-globals": "warn",
-        "consistent-return": "warn"
+        "consistent-return": "warn",
+        "no-unused-vars": "warn",
     }
 };

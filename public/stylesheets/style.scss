@@ -124,7 +124,7 @@ body {
   }
 }
 
-.user-info {
+.current-user-info {
   float: right;
   height: 100%;
 
@@ -137,26 +137,39 @@ body {
 }
 
 .sign-in, .sign-out {
-  display: inline-block;
-  vertical-align: middle;
+  display: none;
+  float: right;
+  height: 100%;
   cursor: pointer;
+  vertical-align: middle;
 
   &:hover {
     text-decoration: underline;
   }
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 0px; height: 100%;
+    vertical-align: middle;
+  }
+
+  &--active {
+    display: block;
+  }
 }
 
-.user {
+.current-user {
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
 
-  &:hover .user__nickname {
+  &:hover .current-user__nickname {
     text-decoration: underline;
   }
 }
 
-.user__picture {
+.current-user__picture {
   display: inline-block;
   width: 25px; height: 25px;
   background: #99f;
@@ -164,7 +177,7 @@ body {
   vertical-align: middle;
 }
 
-.user__nickname {
+.current-user__nickname {
   display: inline-block;
   vertical-align: middle;
 }

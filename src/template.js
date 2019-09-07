@@ -1,17 +1,19 @@
 import { formatDateToDate, formatDateToTime } from './helper';
-
-const userInfo = ({ nickname }) => `
+/**
+ *
+ * @param {CurrentUser} currentUser
+ */
+const currentUserInfo = ({ nickname }) => `
   <div class="friendrequest-toggle">Friend requests
     <div class="friendrequest-badge"></div>
   </div>
   <div class="friendrequest-list"></div>
   <div class="delimeter">|</div>
-  <div class="user">
-    <div class="user__picture"></div>
-    <div class="user__nickname">${nickname}</div>
+  <div class="current-user">
+    <div class="current-user__picture"></div>
+    <div class="current-user__nickname">${nickname}</div>
   </div>
   <div class="delimeter">|</div>
-  <div class="sign-out">Sign out</div>
   `;
 
 const resultItem = ({ _id, email, nickname }) => `
@@ -85,5 +87,5 @@ const selectedUser = ({ _id, nickname }) => `
   `;
 
 export default {
-  userInfo, resultItem, friendrequest, friend, room, message, selectedUser,
+  currentUserInfo, resultItem, friendrequest, friend, room, message, selectedUser,
 };
