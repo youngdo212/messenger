@@ -10,6 +10,7 @@ export default class Controller {
     view.bindCreateCurrentUser(this.createCurrentUser.bind(this));
     view.bindGetCurrentUser(this.getCurrentUser.bind(this));
     view.bindClearCurrentUser(this.clearCurrentUser.bind(this));
+    view.bindUpdateFriendrequest(this.updateFriendrequest.bind(this));
   }
 
   /**
@@ -50,8 +51,32 @@ export default class Controller {
    * @param {CurrentUser} currentUser
    */
   setCurrentUser(currentUser) {
-    this.model.setCurrentUser(currentUser);
+    const { friendrequests, friends, rooms } = currentUser;
+
     this.view.renderCurrentUserInfo(currentUser);
+    this.view.addFriendrequests(friendrequests);
+    this.view.renderFriends(friends);
+    this.view.renderRooms(rooms);
+    this.model.setCurrentUser(currentUser);
+    this.model.onFriendPresenceChanged((friend) => {
+      alert(`${friend.nickname} is ${friend.isPresent ? 'logined!' : 'logout:('}`);
+    });
+    this.model.onFriendRequested((friendrequest) => {
+      this.view.addFriendrequests([friendrequest]);
+    });
+  }
+
+  /**
+   * @param {string} id friendrequest's id
+   * @param {string} answer 'accept' | 'decline'
+   */
+  updateFriendrequest(id, answer) {
+    this.model.updateFriendrequest({
+      id,
+      answer,
+    }, () => {
+      this.view.removeFriendrequest(id);
+    });
   }
 
   /**

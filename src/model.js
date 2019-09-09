@@ -8,6 +8,20 @@ export default class Model {
   }
 
   /**
+   * @param {Function(User)} handler Called when friend signed in
+   */
+  onFriendPresenceChanged(handler) {
+    this.currentUser.onFriendPresenceChanged(handler);
+  }
+
+  /**
+   * @param {Function(Friendrequest)} handler Called when current user is requested friend
+   */
+  onFriendRequested(handler) {
+    this.currentUser.onFriendRequested(handler);
+  }
+
+  /**
    * @param {CurrentUser} currentUser currentUser to insert
    * @param {function(Error, CurrentUser)} callback Called when currentUser is inserted or not
    */
@@ -42,12 +56,22 @@ export default class Model {
    */
   setCurrentUser(currentUser) {
     this.currentUser = currentUser;
-    this.currentUser.onFriendPresenceChanged((friend) => {
-      alert(`${friend.nickname} is ${friend.isPresent ? 'logined!' : 'logout:('}`);
-    });
     this.currentUser.connect().catch((error) => {
       console.log(error);
     });
+  }
+
+  /**
+   * @param {Friendrequest} friendrequest
+   * @param {string} friendrequest.id friendrequest id
+   * @param {string} friendrequest.answer 'accept' | 'decline'
+   * @param {Function()} callback Called update is completed
+   */
+  updateFriendrequest({ id, answer }, callback) {
+    this.currentUser.responseFriendrequest(id, answer)
+      .then(() => {
+        callback();
+      });
   }
 
   /**

@@ -1,6 +1,5 @@
 import template from './template';
 import Search from './search';
-import FriendrequestList from './friendrequestList';
 import FriendList from './friendList';
 import RoomList from './roomList';
 import Chat from './chat';
@@ -9,7 +8,7 @@ import Model from './model';
 import View from './view';
 import Controller from './controller';
 
-const currentUser = null;
+let currentUser = null;
 
 const messenger = new Messenger({
   apiKey: '2b8ed76c93763b0',
@@ -29,9 +28,6 @@ search.onValueRequested(messenger.searchUsers.bind(messenger));
 search.onFriendRequested((userId) => {
   currentUser.requestFriend(userId).catch((error) => console.error(console, error));
 });
-
-const friendrequestList = null;
-const signOutButton = null;
 
 const friendList = new FriendList({
   friendlist: document.querySelector('.friend-list'),
@@ -65,27 +61,25 @@ selectedUserList.onLoadUsers(friendList.getAllFriends.bind(friendList));
 selectedUserList.onConfirmButtonClicked(chat.inviteUsers.bind(chat));
 chat.onInviteButtonClick(selectedUserList.open.bind(selectedUserList));
 
-// messenger.onUserStateChanged((user) => {
-//   if (!user) return location.replace('http://localhost:3001');
+messenger.onUserStateChanged((user) => {
+  currentUser = user;
+  // if (!user) return location.replace('http://localhost:3001');
 
-//   friendrequestList = new FriendrequestList({
-//     friendrequestList: document.querySelector('.friendrequest-list'),
-//     toggle: document.querySelector('.friendrequest-toggle'),
-//     badge: document.querySelector('.friendrequest-badge'),
-//   });
+  //   toggle: document.querySelector('.friendrequest-toggle'),
+  //   badge: document.querySelector('.friendrequest-badge'),
+  // });
 
-//   currentUser = user;
-//   currentUser.onFriendRequested(friendrequestList.add.bind(friendrequestList));
-//   currentUser.onFriendAdded(friendList.add.bind(friendList));
-//   currentUser.onFriendRemoved(friendList.remove.bind(friendList));
-//   currentUser.onRoomAdded(roomList.add.bind(roomList));
-//   chat.onMessageSubmitted(currentUser.sendMessage.bind(currentUser));
-//   chat.onRoomOpened(currentUser.openRoom.bind(currentUser));
-//   chat.onRoomClosed(currentUser.closeRoom.bind(currentUser));
-//   chat.onLeaveRoomButtonClicked(currentUser.leaveRoom.bind(currentUser));
-//   currentUser.onMessage((message) => {
-//     alert(`(currentUser.onMessage)${message.sender.nickname} : ${message.type === 'text' ? message.text : message.type}`);
-//   });
-//   currentUser.onRoomRemoved(roomList.remove.bind(roomList));
-//   currentUser.onRoomUpdated(roomList.update.bind(roomList));
-// });
+  // currentUser = user;
+  // currentUser.onFriendAdded(friendList.add.bind(friendList));
+  // currentUser.onFriendRemoved(friendList.remove.bind(friendList));
+  // currentUser.onRoomAdded(roomList.add.bind(roomList));
+  // chat.onMessageSubmitted(currentUser.sendMessage.bind(currentUser));
+  // chat.onRoomOpened(currentUser.openRoom.bind(currentUser));
+  // chat.onRoomClosed(currentUser.closeRoom.bind(currentUser));
+  // chat.onLeaveRoomButtonClicked(currentUser.leaveRoom.bind(currentUser));
+  // currentUser.onMessage((message) => {
+  //   alert(`(currentUser.onMessage)${message.sender.nickname} : ${message.type === 'text' ? message.text : message.type}`);
+  // });
+  // currentUser.onRoomRemoved(roomList.remove.bind(roomList));
+  // currentUser.onRoomUpdated(roomList.update.bind(roomList));
+});

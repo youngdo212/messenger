@@ -4,10 +4,6 @@ import { formatDateToDate, formatDateToTime } from './helper';
  * @param {CurrentUser} currentUser
  */
 const currentUserInfo = ({ nickname }) => `
-  <div class="friendrequest-toggle">Friend requests
-    <div class="friendrequest-badge"></div>
-  </div>
-  <div class="friendrequest-list"></div>
   <div class="delimeter">|</div>
   <div class="current-user">
     <div class="current-user__picture"></div>

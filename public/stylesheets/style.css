@@ -154,11 +154,20 @@ body {
 
 .friendrequest-toggle {
   position: relative;
-  display: inline-block;
-  vertical-align: middle;
+  display: none;
+  float: right;
+  height: 100%;
   cursor: pointer; }
   .friendrequest-toggle:hover {
     text-decoration: underline; }
+  .friendrequest-toggle--active {
+    display: block; }
+  .friendrequest-toggle::before {
+    content: '';
+    display: inline-block;
+    width: 0px;
+    height: 100%;
+    vertical-align: middle; }
 
 .friendrequest-badge {
   display: none;
