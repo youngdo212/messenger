@@ -14,21 +14,8 @@ body {
   width: 400px;
   height: 100%;
   z-index: 2; }
-  .search--loading .search__result {
-    display: block; }
-    .search--loading .search__result::before {
-      content: 'loading...';
-      display: block;
-      box-sizing: border-box;
-      width: 100%;
-      line-height: 45px;
-      padding: 0px 8px; }
   .search--complete .search__result {
     display: block; }
-
-.search__form {
-  width: 100%;
-  height: 100%; }
 
 .search__input {
   box-sizing: border-box;
@@ -49,6 +36,15 @@ body {
   border: 1px solid #ccc;
   border-top: none;
   background: #fff; }
+  .search__result--loading::before {
+    content: 'loading...';
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 45px;
+    padding: 0px 8px; }
+  .search__result--active {
+    display: block; }
 
 .search__no-item {
   box-sizing: border-box;

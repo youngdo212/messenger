@@ -22,6 +22,13 @@ export default class Model {
   }
 
   /**
+   * @param {Function} handler Called when friend added
+   */
+  onFriendAdded(handler) {
+    this.currentUser.onFriendAdded(handler);
+  }
+
+  /**
    * @param {CurrentUser} currentUser currentUser to insert
    * @param {function(Error, CurrentUser)} callback Called when currentUser is inserted or not
    */
@@ -66,6 +73,34 @@ export default class Model {
    */
   updateFriendrequest({ id, answer }, callback) {
     this.currentUser.responseFriendrequest(id, answer)
+      .then(() => {
+        callback();
+      });
+  }
+
+  /**
+   * @param {Object} query
+   * @param {Array} query.fields 'email' | 'nickname' or both
+   * @param {RegExp} query.value
+   * @param {Function(Array)} callback Called with users when all users are found
+   */
+  findUsers({ fields, value }, callback) {
+    const promises = fields.map((field) => this.messenger.getUsers(field, value));
+    Promise.all(promises)
+      .then((users) => {
+        const flattedUsers = users.flat();
+        const usersWithoutDuplication = flattedUsers.filter((user, index) => (flattedUsers.findIndex((e) => e.email === user.email) >= index));
+        callback(usersWithoutDuplication);
+      });
+  }
+
+  /**
+   * @param {Object} friendrequest
+   * @param {string} friendrequest.to The user id Who current user want to request friend to
+   * @param {Function()} callback Called when friendrequest is inserted seccessfully
+   */
+  insertFriendrequest({ to }, callback) {
+    this.currentUser.requestFriend(to)
       .then(() => {
         callback();
       });

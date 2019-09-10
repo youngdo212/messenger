@@ -21,6 +21,8 @@ const resultItem = ({ _id, email, nickname }) => `
     </div>
   </div>`;
 
+const resultNoItem = () => '<div class="search__no-item">no result</div>';
+
 const friendrequest = ({ _id, from: sender }) => `
   <div class="friendrequest" data-id="${_id}">
     <div class="friendrequest__nickname">${sender.nickname}</div>
@@ -83,5 +85,5 @@ const selectedUser = ({ _id, nickname }) => `
   `;
 
 export default {
-  currentUserInfo, resultItem, friendrequest, friend, room, message, selectedUser,
+  currentUserInfo, resultItem, resultNoItem, friendrequest, friend, room, message, selectedUser,
 };

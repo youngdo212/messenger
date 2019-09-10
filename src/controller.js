@@ -11,6 +11,8 @@ export default class Controller {
     view.bindGetCurrentUser(this.getCurrentUser.bind(this));
     view.bindClearCurrentUser(this.clearCurrentUser.bind(this));
     view.bindUpdateFriendrequest(this.updateFriendrequest.bind(this));
+    view.bindSearchUsers(this.searchUsers.bind(this));
+    view.bindRequestFriend(this.requestFriend.bind(this));
   }
 
   /**
@@ -61,12 +63,29 @@ export default class Controller {
     this.model.onFriendRequested((friendrequest) => {
       this.view.addFriendrequests([friendrequest]);
     });
+    this.model.onFriendAdded((friend) => {
+      this.view.addFriends([friend]);
+    });
 
     // view rendering
     this.view.renderCurrentUserInfo(currentUser);
     this.view.addFriendrequests(friendrequests);
-    this.view.renderFriends(friends);
+    this.view.addFriends(friends);
     this.view.renderRooms(rooms);
+  }
+
+  /**
+   * clear current user
+   */
+  clearCurrentUser() {
+    this.model.clearCurrentUser((error) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      this.view.clear();
+    });
   }
 
   /**
@@ -83,16 +102,25 @@ export default class Controller {
   }
 
   /**
-   * clear current user
+   * @param {RegExp} value
    */
-  clearCurrentUser() {
-    this.model.clearCurrentUser((error) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
+  searchUsers(value) {
+    this.model.findUsers({
+      fields: ['email', 'nickname'],
+      value,
+    }, (users) => {
+      this.view.renderSearchResults(users);
+    });
+  }
 
-      this.view.clear();
+  /**
+   * @param {string} userId
+   */
+  requestFriend(userId) {
+    this.model.insertFriendrequest({
+      to: userId,
+    }, () => {
+      console.log('request completed!');
     });
   }
 }

@@ -1,5 +1,4 @@
 import template from './template';
-import Search from './search';
 import FriendList from './friendList';
 import RoomList from './roomList';
 import Chat from './chat';
@@ -19,15 +18,6 @@ messenger.initializeApp().catch((error) => console.error.bind(console, error));
 const model = new Model(messenger);
 const view = new View(template);
 const controller = new Controller(model, view);
-
-const search = new Search({
-  search: document.querySelector('.search'),
-});
-
-search.onValueRequested(messenger.searchUsers.bind(messenger));
-search.onFriendRequested((userId) => {
-  currentUser.requestFriend(userId).catch((error) => console.error(console, error));
-});
 
 const friendList = new FriendList({
   friendlist: document.querySelector('.friend-list'),

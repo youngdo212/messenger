@@ -13,6 +13,9 @@ export default class View {
     this.$signInButton = document.querySelector('.sign-in');
     this.$signOutButton = document.querySelector('.sign-out');
     this.$friendrequestList = document.querySelector('.friendrequest-list');
+    this.$searchInput = document.querySelector('input');
+    this.$searchResult = document.querySelector('.search__result');
+    this.$friendList = document.querySelector('.friend-list');
     this.modal = new ViewModal({
       modal: document.querySelector('.modal'),
       toggle: this.$signInButton,
@@ -82,6 +85,37 @@ export default class View {
   }
 
   /**
+   * @param {Function(RegExp)} handler Called when input value is changed
+   */
+  bindSearchUsers(handler) {
+    this.$searchInput.addEventListener('input', async ({ target: { value } }) => {
+      if (value === '') {
+        this.$searchResult.classList.remove('search__result--active');
+        return;
+      }
+      const regexp = new RegExp(`^${value}`);
+
+      this.$searchResult.classList.add('search__result--active');
+      this.$searchResult.classList.add('search__result--loading');
+      handler(regexp);
+    });
+  }
+
+  /**
+   * @param {Function} handler Called when add button clicked in search result
+   */
+  bindRequestFriend(handler) {
+    this.$searchResult.addEventListener('click', ({ target }) => {
+      if (target.tagName !== 'BUTTON') return;
+
+      const $userItem = target.closest('.search__user-item');
+      const userId = $userItem.dataset.id;
+
+      handler(userId);
+    });
+  }
+
+  /**
    * @param {CurrentUser} currentUser
    */
   renderCurrentUserInfo(currentUser) {
@@ -111,11 +145,22 @@ export default class View {
   }
 
   /**
+   * @param {Array} users array of user
+   */
+  renderSearchResults(users) {
+    this.$searchResult.innerHTML = '';
+    this.$searchResult.innerHTML = users.length === 0 ? this.template.resultNoItem() : users.reduce((results, user) => results + this.template.resultItem(user), '');
+    this.$searchResult.classList.remove('search__result--loading');
+  }
+
+  /**
    *
    * @param {Array} friends array of friend
    */
-  renderFriends(friends) {
-    console.log(friends);
+  addFriends(friends) {
+    friends.forEach((friend) => {
+      this.$friendList.insertAdjacentHTML('beforeend', this.template.friend(friend));
+    });
   }
 
   /**
@@ -152,5 +197,6 @@ export default class View {
     this.friendrequestsToggle.deactive();
     this.$friendrequestList.innerHTML = '';
     this.$friendrequestList.classList.remove('friendrequest-list--active');
+    this.$friendList.innerHTML = '';
   }
 }
