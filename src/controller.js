@@ -53,10 +53,7 @@ export default class Controller {
   setCurrentUser(currentUser) {
     const { friendrequests, friends, rooms } = currentUser;
 
-    this.view.renderCurrentUserInfo(currentUser);
-    this.view.addFriendrequests(friendrequests);
-    this.view.renderFriends(friends);
-    this.view.renderRooms(rooms);
+    // model setting
     this.model.setCurrentUser(currentUser);
     this.model.onFriendPresenceChanged((friend) => {
       alert(`${friend.nickname} is ${friend.isPresent ? 'logined!' : 'logout:('}`);
@@ -64,6 +61,12 @@ export default class Controller {
     this.model.onFriendRequested((friendrequest) => {
       this.view.addFriendrequests([friendrequest]);
     });
+
+    // view rendering
+    this.view.renderCurrentUserInfo(currentUser);
+    this.view.addFriendrequests(friendrequests);
+    this.view.renderFriends(friends);
+    this.view.renderRooms(rooms);
   }
 
   /**
