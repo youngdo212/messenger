@@ -56,9 +56,6 @@ export default class Model {
    */
   setCurrentUser(currentUser) {
     this.currentUser = currentUser;
-    this.currentUser.connect().catch((error) => {
-      console.log(error);
-    });
   }
 
   /**
@@ -78,13 +75,9 @@ export default class Model {
    * @param {Function} callback Function called when clearing currentUser
    */
   clearCurrentUser(callback) {
-    this.currentUser.disconnect()
+    this.messenger.signOut()
       .then(() => {
-        this.currentUser = null;
         callback();
-      })
-      .catch((error) => {
-        callback(error);
       });
   }
 }
