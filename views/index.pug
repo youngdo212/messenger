@@ -12,6 +12,19 @@ block content
       .friendrequest-badge
     .friendrequest-list
   .content
+    .friend-popover(
+      data-user-id = ""
+    )
+      .friend-popover__triangle
+      .friend-popover__content
+        .friend-popover__nickname
+        .friend-popover__buttons
+          button.button.button--message(
+            data-behavior="message"
+          ) Message
+          button.button.button--remove-friend(
+            data-behavior="remove"
+          ) Remove
     .friend-list
     .room-list
     .chat

@@ -1,5 +1,6 @@
 import ViewModal from './viewModal';
 import ViewFriendrequestToggle from './viewFriendrequestToggle';
+import ViewFriendPopover from './viewFriendPopover';
 
 export default class View {
   /**
@@ -24,9 +25,21 @@ export default class View {
       toggle: document.querySelector('.friendrequest-toggle'),
       badge: document.querySelector('.friendrequest-badge'),
     });
+    this.friendPopover = new ViewFriendPopover({
+      popover: document.querySelector('.friend-popover'),
+    });
 
     this.modal.bindClose(this.closeModal.bind(this));
     this.friendrequestsToggle.bindToggle(this.toggleFriendrequestList.bind(this));
+    this.$friendList.addEventListener('click', ({ target }) => {
+      if (target.className !== 'friend__picture') return;
+
+      const $friend = target.closest('.friend');
+      const { offsetTop, offsetHeight } = $friend;
+      const location = offsetTop + (offsetHeight / 2);
+      const { id, nickname } = $friend.dataset;
+      this.friendPopover.render({ id, nickname, location });
+    });
   }
 
   /**
@@ -116,6 +129,13 @@ export default class View {
   }
 
   /**
+   * @param {Function(string)} handler Called when remove button is clicked
+   */
+  bindRemoveFriend(handler) {
+    this.friendPopover.bindRemoveFriend(handler);
+  }
+
+  /**
    * @param {CurrentUser} currentUser
    */
   renderCurrentUserInfo(currentUser) {
@@ -154,17 +174,13 @@ export default class View {
   }
 
   /**
-   *
    * @param {Array} friends array of friend
    */
-  addFriends(friends) {
-    friends.forEach((friend) => {
-      this.$friendList.insertAdjacentHTML('beforeend', this.template.friend(friend));
-    });
+  renderFriends(friends) {
+    this.$friendList.innerHTML = friends.reduce((renderedHTML, friend) => renderedHTML + this.template.friend(friend), '');
   }
 
   /**
-   *
    * @param {Array} rooms array of room
    */
   renderRooms(rooms) {

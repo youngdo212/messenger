@@ -1,5 +1,4 @@
 import template from './template';
-import FriendList from './friendList';
 import RoomList from './roomList';
 import Chat from './chat';
 import SelectedUserList from './selectedUserList';
@@ -19,20 +18,6 @@ const model = new Model(messenger);
 const view = new View(template);
 const controller = new Controller(model, view);
 
-const friendList = new FriendList({
-  friendlist: document.querySelector('.friend-list'),
-});
-
-friendList.onFriendRemoved((friendId) => {
-  currentUser.removeFriend(friendId).catch((error) => console.error(console, error));
-});
-friendList.onRoomCreated((friendId) => {
-  currentUser.createRoom({
-    inviteUserIds: [friendId],
-  })
-    .catch((error) => console.error(console, error));
-});
-
 const roomList = new RoomList({
   roomList: document.querySelector('.room-list'),
 });
@@ -47,7 +32,6 @@ const selectedUserList = new SelectedUserList({
   selectedUserList: document.querySelector('.selected-user-list'),
 });
 
-selectedUserList.onLoadUsers(friendList.getAllFriends.bind(friendList));
 selectedUserList.onConfirmButtonClicked(chat.inviteUsers.bind(chat));
 chat.onInviteButtonClick(selectedUserList.open.bind(selectedUserList));
 

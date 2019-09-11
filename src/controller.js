@@ -13,6 +13,7 @@ export default class Controller {
     view.bindUpdateFriendrequest(this.updateFriendrequest.bind(this));
     view.bindSearchUsers(this.searchUsers.bind(this));
     view.bindRequestFriend(this.requestFriend.bind(this));
+    view.bindRemoveFriend(this.removeFriend.bind(this));
   }
 
   /**
@@ -52,25 +53,21 @@ export default class Controller {
   /**
    * @param {CurrentUser} currentUser
    */
-  setCurrentUser(currentUser) {
-    const { friendrequests, friends, rooms } = currentUser;
+  async setCurrentUser(currentUser) {
+    const { friendrequests, rooms } = currentUser;
+    const friends = await currentUser.getFriends({ isPresent: 'desc' });
 
     // model setting
     this.model.setCurrentUser(currentUser);
-    this.model.onFriendPresenceChanged((friend) => {
-      alert(`${friend.nickname} is ${friend.isPresent ? 'logined!' : 'logout:('}`);
-    });
     this.model.onFriendRequested((friendrequest) => {
       this.view.addFriendrequests([friendrequest]);
     });
-    this.model.onFriendAdded((friend) => {
-      this.view.addFriends([friend]);
-    });
+    this.model.onFriendsUpdated(this.view.renderFriends.bind(this.view));
 
     // view rendering
     this.view.renderCurrentUserInfo(currentUser);
     this.view.addFriendrequests(friendrequests);
-    this.view.addFriends(friends);
+    this.view.renderFriends(friends);
     this.view.renderRooms(rooms);
   }
 
@@ -121,6 +118,19 @@ export default class Controller {
       to: userId,
     }, () => {
       console.log('request completed!');
+    });
+  }
+
+  /**
+   * @param {string} id friend id to remove
+   */
+  removeFriend(id) {
+    this.model.deleteFriend({
+      id,
+    }, (error, friend) => {
+      if (error) return;
+
+      console.log(`${friend.nickname}님이 성공적으로 제거되었습니다`);
     });
   }
 }

@@ -32,20 +32,10 @@ const friendrequest = ({ _id, from: sender }) => `
     </div>
   </div>`;
 
-const friend = ({ _id, nickname }) => `
-    <div class="friend" data-id="${_id}">
+const friend = ({ _id, nickname, isPresent }) => `
+    <div class="friend ${isPresent ? 'friend--signed-in' : ''}" data-id="${_id}" data-nickname="${nickname}">
       <div class="friend-content">
         <div class="friend__picture"></div>
-        <div class="friend__popover">
-          <div class="friend__popover-triangle"></div>
-          <div class="friend__popover-content">
-            <div class="friend__nickname">${nickname}</div>
-            <div class="friend__buttons">
-              <button class="button button--message" data-behavior="message">Message</button>
-              <button class="button button--remove-friend" data-behavior="remove">Remove</button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>`;
 

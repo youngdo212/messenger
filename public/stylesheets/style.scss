@@ -287,6 +287,7 @@ body {
 }
 
 .content {
+  position: relative;
   width: 100vw; height: $content-height;
 
   // clearfix
@@ -316,8 +317,8 @@ body {
     margin-bottom: 0px;
   }
 
-  &--selected .friend__popover {
-    display: block;
+  &--signed-in .friend__picture {
+    background: #99f;
   }
 }
 
@@ -338,17 +339,22 @@ body {
   }
 }
 
-.friend__popover {
+.friend-popover {
   display: none;
   position: absolute;
-  top: -15px; left: 110%;
+  top: 0px; left: calc(#{$friend-list-width} - 7px);
   width: 213px; height: 80px;
   overflow: hidden;
   cursor: default;
   z-index: 1;
+  transform: translate3d(0px, -50%, 0px);
+
+  &--active {
+    display: block;
+  }
 }
 
-.friend__popover-triangle {
+.friend-popover__triangle {
   position: relative;
   float: left;
   width: 13px; height: 100%;
@@ -370,7 +376,7 @@ body {
   }
 }
 
-.friend__popover-content {
+.friend-popover__content {
   float: left;
   box-sizing: border-box;
   width: 200px; height: 100%;
@@ -380,7 +386,7 @@ body {
   overflow: hidden;
 }
 
-.friend__nickname {
+.friend-popover__nickname {
   box-sizing: border-box;
   line-height: 25px;
   border-bottom: 1px solid #dfdfdf;
@@ -389,7 +395,7 @@ body {
   background: #f5f5f5;
 }
 
-.friend__buttons {
+.friend-popover__buttons {
   height: 51px;
   text-align: center;
 

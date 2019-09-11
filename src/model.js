@@ -22,10 +22,17 @@ export default class Model {
   }
 
   /**
-   * @param {Function} handler Called when friend added
+   * @param {Function(Friends)} handler Called when friend is added, removed or friend presence changed
    */
-  onFriendAdded(handler) {
-    this.currentUser.onFriendAdded(handler);
+  onFriendsUpdated(handler) {
+    const getFriends = async () => {
+      const friends = await this.currentUser.getFriends({ isPresent: 'decs' });
+      handler(friends);
+    };
+
+    this.currentUser.onFriendAdded(getFriends);
+    this.currentUser.onFriendPresenceChanged(getFriends);
+    this.currentUser.onFriendRemoved(getFriends);
   }
 
   /**
@@ -103,6 +110,21 @@ export default class Model {
     this.currentUser.requestFriend(to)
       .then(() => {
         callback();
+      });
+  }
+
+  /**
+   * @param {Friend} friend
+   * @param {string} friend.id friend id to remove
+   * @param {Function(Error, Friend)} callback Called with removed friend when the friend is removed
+   */
+  deleteFriend({ id }, callback) {
+    this.currentUser.removeFriend(id)
+      .then((removedFriend) => {
+        callback(null, removedFriend);
+      })
+      .catch((error) => {
+        callback(error);
       });
   }
 
