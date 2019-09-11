@@ -8,6 +8,19 @@ export default class Model {
   }
 
   /**
+   * @param {Function(Error[, CurrentUser])} callback
+   */
+  init(callback) {
+    this.messenger.initializeApp()
+      .then((currentUser) => {
+        callback(null, currentUser);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
+
+  /**
    * @param {Function(User)} handler Called when friend signed in
    */
   onFriendPresenceChanged(handler) {

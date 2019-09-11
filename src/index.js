@@ -12,11 +12,11 @@ const messenger = new Messenger({
   apiKey: '2b8ed76c93763b0',
 });
 
-messenger.initializeApp().catch((error) => console.error.bind(console, error));
-
 const model = new Model(messenger);
 const view = new View(template);
 const controller = new Controller(model, view);
+
+controller.init();
 
 const roomList = new RoomList({
   roomList: document.querySelector('.room-list'),

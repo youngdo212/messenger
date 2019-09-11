@@ -17,6 +17,17 @@ export default class Controller {
   }
 
   /**
+   * request to api server with cookie and set current user
+   */
+  init() {
+    this.model.init((error, currentUser) => {
+      if (error) return;
+      if (!currentUser) return;
+      this.setCurrentUser(currentUser);
+    });
+  }
+
+  /**
    * @param {!string} email
    * @param {!string} password
    * @param {!string} nickname
