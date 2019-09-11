@@ -197,7 +197,8 @@ body {
   border: 1px solid #ccc;
   background: #fff;
   box-shadow: 1px 1px 5px #ccc;
-  cursor: default; }
+  cursor: default;
+  z-index: 1; }
   .friendrequest-list--active {
     display: block; }
 
