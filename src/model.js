@@ -49,6 +49,18 @@ export default class Model {
   }
 
   /**
+   * @param {Function(Rooms)} handler Called when room is added, removed or room state changed
+   */
+  onRoomsUpdated(handler) {
+    const getRooms = async () => {
+      const rooms = await this.currentUser.getRooms();
+      handler(rooms);
+    };
+
+    this.currentUser.onRoomAdded(getRooms);
+  }
+
+  /**
    * @param {CurrentUser} currentUser currentUser to insert
    * @param {function(Error, CurrentUser)} callback Called when currentUser is inserted or not
    */
@@ -135,6 +147,21 @@ export default class Model {
     this.currentUser.removeFriend(id)
       .then((removedFriend) => {
         callback(null, removedFriend);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
+
+  /**
+   * @param {RoomOptions} roomOptions
+   * @param {string[]} roomOptions.inviteUserIds user who is invited to room(except user who creates the room)
+   * @param {Function(Error[, Room])} callback Called when room is inserted or not
+   */
+  insertRoom(roomOptions, callback) {
+    this.currentUser.createRoom(roomOptions)
+      .then((room) => {
+        callback(null, room);
       })
       .catch((error) => {
         callback(error);

@@ -1,5 +1,4 @@
 import template from './template';
-import RoomList from './roomList';
 import Chat from './chat';
 import SelectedUserList from './selectedUserList';
 import Model from './model';
@@ -18,15 +17,9 @@ const controller = new Controller(model, view);
 
 controller.init();
 
-const roomList = new RoomList({
-  roomList: document.querySelector('.room-list'),
-});
-
 const chat = new Chat({
   chat: document.querySelector('.chat'),
 });
-
-roomList.onRoomSelected(chat.load.bind(chat));
 
 const selectedUserList = new SelectedUserList({
   selectedUserList: document.querySelector('.selected-user-list'),

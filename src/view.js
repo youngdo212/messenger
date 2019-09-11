@@ -17,6 +17,7 @@ export default class View {
     this.$searchInput = document.querySelector('input');
     this.$searchResult = document.querySelector('.search__result');
     this.$friendList = document.querySelector('.friend-list');
+    this.$roomList = document.querySelector('.room-list');
     this.modal = new ViewModal({
       modal: document.querySelector('.modal'),
       toggle: this.$signInButton,
@@ -136,6 +137,13 @@ export default class View {
   }
 
   /**
+   * @param {Function(string)} handler Called when message button is clicked
+   */
+  bindMessageToFriend(handler) {
+    this.friendPopover.bindMessageToFriend(handler);
+  }
+
+  /**
    * @param {CurrentUser} currentUser
    */
   renderCurrentUserInfo(currentUser) {
@@ -184,7 +192,7 @@ export default class View {
    * @param {Array} rooms array of room
    */
   renderRooms(rooms) {
-    console.log(rooms);
+    this.$roomList.innerHTML = rooms.reduce((renderedHTML, room) => renderedHTML + this.template.room(room), '');
   }
 
   /**
@@ -214,5 +222,6 @@ export default class View {
     this.$friendrequestList.innerHTML = '';
     this.$friendrequestList.classList.remove('friendrequest-list--active');
     this.$friendList.innerHTML = '';
+    this.$roomList.innerHTML = '';
   }
 }

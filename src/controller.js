@@ -14,6 +14,7 @@ export default class Controller {
     view.bindSearchUsers(this.searchUsers.bind(this));
     view.bindRequestFriend(this.requestFriend.bind(this));
     view.bindRemoveFriend(this.removeFriend.bind(this));
+    view.bindMessageToFriend(this.messageToFriend.bind(this));
   }
 
   /**
@@ -65,8 +66,9 @@ export default class Controller {
    * @param {CurrentUser} currentUser
    */
   async setCurrentUser(currentUser) {
-    const { friendrequests, rooms } = currentUser;
+    const { friendrequests } = currentUser;
     const friends = await currentUser.getFriends({ isPresent: 'desc' });
+    const rooms = await currentUser.getRooms();
 
     // model setting
     this.model.setCurrentUser(currentUser);
@@ -74,6 +76,7 @@ export default class Controller {
       this.view.addFriendrequests([friendrequest]);
     });
     this.model.onFriendsUpdated(this.view.renderFriends.bind(this.view));
+    this.model.onRoomsUpdated(this.view.renderRooms.bind(this.view));
 
     // view rendering
     this.view.renderCurrentUserInfo(currentUser);
@@ -142,6 +145,18 @@ export default class Controller {
       if (error) return;
 
       console.log(`${friend.nickname}님이 성공적으로 제거되었습니다`);
+    });
+  }
+
+  /**
+   * @param {string} id friend id to message
+   */
+  messageToFriend(id) {
+    this.model.insertRoom({
+      inviteUserIds: [id],
+    }, (error, room) => {
+      if (error) return;
+      console.log(`${room._id} is created!`);
     });
   }
 }

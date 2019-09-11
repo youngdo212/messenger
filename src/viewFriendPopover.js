@@ -22,6 +22,19 @@ export default class ViewFriendPopover {
   }
 
   /**
+   * @param {Function(string)} handler Called when message button is clicked
+   */
+  bindMessageToFriend(handler) {
+    this.$popover.addEventListener('click', ({ target }) => {
+      if (target.dataset.behavior !== 'message') return;
+
+      const { userId } = this.$popover.dataset;
+      this.clear();
+      handler(userId);
+    });
+  }
+
+  /**
    * @param {Friend} friend
    * @param {string} friend.id
    * @param {string} friend.nickname
