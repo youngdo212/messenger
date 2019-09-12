@@ -17,16 +17,16 @@ const controller = new Controller(model, view);
 
 controller.init();
 
-const chat = new Chat({
-  chat: document.querySelector('.chat'),
-});
+// const chat = new Chat({
+//   chat: document.querySelector('.chat'),
+// });
 
 const selectedUserList = new SelectedUserList({
   selectedUserList: document.querySelector('.selected-user-list'),
 });
 
-selectedUserList.onConfirmButtonClicked(chat.inviteUsers.bind(chat));
-chat.onInviteButtonClick(selectedUserList.open.bind(selectedUserList));
+// selectedUserList.onConfirmButtonClicked(chat.inviteUsers.bind(chat));
+// chat.onInviteButtonClick(selectedUserList.open.bind(selectedUserList));
 
 messenger.onUserStateChanged((user) => {
   currentUser = user;

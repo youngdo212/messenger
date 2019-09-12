@@ -12,4 +12,59 @@ const formatDateToTime = (dateObject) => {
   return `${hours}:${minutes}`;
 };
 
-export { formatDateToDate, formatDateToTime };
+const EventEmitter = class {
+  constructor() {
+    this.events = {};
+  }
+
+  /**
+   * @param {string} eventName name of the event
+   * @param {Function} listener handler of the event
+   */
+  on(eventName, listener) {
+    const listeners = this.events[eventName] || [];
+
+    this.events[eventName] = listeners.concat(listener);
+  }
+
+  /**
+   * @param {string} eventName
+   * @param {Function} listener
+   */
+  off(eventName, listener) {
+    const listeners = this.events[eventName];
+
+    if (!listeners) return;
+
+    this.events[eventName] = listeners.filter((attachedListener) => attachedListener !== listener);
+  }
+
+  /**
+   * @param {string} eventName
+   * @param {Funtion} listener
+   */
+  once(eventName, listener) {
+    const wrapper = (...args) => {
+      listener(...args);
+      this.off(eventName, wrapper);
+    };
+
+    this.on(eventName, wrapper);
+  }
+
+  /**
+   * @param {string} eventName
+   * @param  {...any} args
+   */
+  emit(eventName, ...args) {
+    const listeners = this.events[eventName];
+
+    if (!listeners) return;
+
+    listeners.forEach((listener) => {
+      listener(...args);
+    });
+  }
+};
+
+export { formatDateToDate, formatDateToTime, EventEmitter };

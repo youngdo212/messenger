@@ -18,6 +18,10 @@ export default class View {
     this.$searchResult = document.querySelector('.search__result');
     this.$friendList = document.querySelector('.friend-list');
     this.$roomList = document.querySelector('.room-list');
+    this.$chat = document.querySelector('.chat');
+    this.$chatBody = this.$chat.querySelector('.chat__body');
+    this.$chatName = this.$chat.querySelector('.chat__room-name');
+    this.$chatUserNumber = this.$chat.querySelector('.chat__user-number');
     this.modal = new ViewModal({
       modal: document.querySelector('.modal'),
       toggle: this.$signInButton,
@@ -144,6 +148,19 @@ export default class View {
   }
 
   /**
+   * @param {Function(string)} handler Called when room is clicked
+   */
+  bindOpenChat(handler) {
+    this.$roomList.addEventListener('click', ({ target }) => {
+      const $room = target.closest('.room');
+
+      if (!$room) return;
+
+      handler($room.dataset.id);
+    });
+  }
+
+  /**
    * @param {CurrentUser} currentUser
    */
   renderCurrentUserInfo(currentUser) {
@@ -196,6 +213,29 @@ export default class View {
   }
 
   /**
+   * @param {Room} room
+   */
+  renderChat(room) {
+    this.$chat.classList.add('chat--active');
+    this.$chatBody.innerHTML = '';
+    this.$chatName.textContent = room.users.map((user) => user.nickname).join(', ');
+    this.$chatUserNumber.textContent = room.users.length;
+  }
+
+  /**
+   * @param {Room} room
+   * @param {string} room._id
+   */
+  setRoomSelected({ _id }) {
+    const $rooms = this.$roomList.querySelectorAll('.room');
+
+    $rooms.forEach(($room) => {
+      if ($room.dataset.id !== _id) $room.classList.remove('room--selected');
+      else $room.classList.add('room--selected');
+    });
+  }
+
+  /**
    * close modal and reset form data
    */
   closeModal() {
@@ -223,5 +263,9 @@ export default class View {
     this.$friendrequestList.classList.remove('friendrequest-list--active');
     this.$friendList.innerHTML = '';
     this.$roomList.innerHTML = '';
+    this.$chat.classList.remove('chat--active');
+    this.$chatBody.innerHTML = '';
+    this.$chatName.textContent = '';
+    this.$chatUserNumber.textContent = '';
   }
 }

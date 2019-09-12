@@ -426,6 +426,10 @@ body {
   &:hover {
     background: #f1f1f1;
   }
+
+  &--selected {
+    background: #f1f1f1;
+  }
 }
 
 .room__picture {

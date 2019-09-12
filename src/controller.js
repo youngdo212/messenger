@@ -15,6 +15,7 @@ export default class Controller {
     view.bindRequestFriend(this.requestFriend.bind(this));
     view.bindRemoveFriend(this.removeFriend.bind(this));
     view.bindMessageToFriend(this.messageToFriend.bind(this));
+    view.bindOpenChat(this.openChat.bind(this));
   }
 
   /**
@@ -156,7 +157,23 @@ export default class Controller {
       inviteUserIds: [id],
     }, (error, room) => {
       if (error) return;
-      console.log(`${room._id} is created!`);
+
+      this.view.renderChat(room);
+      this.view.setRoomSelected(room);
+    });
+  }
+
+  /**
+   * @param {string} roomId room id to open
+   */
+  openChat(roomId) {
+    this.model.findRoom({
+      id: roomId,
+    }, (error, room) => {
+      if (error) return;
+
+      this.view.renderChat(room);
+      this.view.setRoomSelected(room);
     });
   }
 }

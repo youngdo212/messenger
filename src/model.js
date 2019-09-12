@@ -1,3 +1,5 @@
+import { EventEmitter } from './helper';
+
 export default class Model {
   /**
    * @param {Messenger} messenger messenger sdk
@@ -5,6 +7,7 @@ export default class Model {
   constructor(messenger) {
     this.messenger = messenger;
     this.currentUser = null;
+    this.eventEmitter = new EventEmitter();
   }
 
   /**
@@ -55,6 +58,7 @@ export default class Model {
     const getRooms = async () => {
       const rooms = await this.currentUser.getRooms();
       handler(rooms);
+      this.eventEmitter.emit('rooms-updated');
     };
 
     this.currentUser.onRoomAdded(getRooms);
@@ -160,6 +164,23 @@ export default class Model {
    */
   insertRoom(roomOptions, callback) {
     this.currentUser.createRoom(roomOptions)
+      .then((room) => {
+        this.eventEmitter.once('rooms-updated', () => {
+          callback(null, room);
+        });
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
+
+  /**
+   * @param {Room} room
+   * @param {string} room.id
+   * @param {Function(Error, Room)} callback
+   */
+  findRoom({ id }, callback) {
+    this.messenger.getRoom(id)
       .then((room) => {
         callback(null, room);
       })

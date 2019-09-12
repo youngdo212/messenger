@@ -356,6 +356,8 @@ body {
   overflow: hidden; }
   .room:hover {
     background: #f1f1f1; }
+  .room--selected {
+    background: #f1f1f1; }
 
 .room__picture {
   float: left;
