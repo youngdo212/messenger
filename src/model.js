@@ -7,6 +7,7 @@ export default class Model {
   constructor(messenger) {
     this.messenger = messenger;
     this.currentUser = null;
+    this.openedRoomId = '';
     this.eventEmitter = new EventEmitter();
   }
 
@@ -62,6 +63,13 @@ export default class Model {
     };
 
     this.currentUser.onRoomAdded(getRooms);
+  }
+
+  /**
+   * @param {Function(Message)} handler Called when current user receive message
+   */
+  onMessage(handler) {
+    this.currentUser.onMessage(handler);
   }
 
   /**
@@ -183,6 +191,57 @@ export default class Model {
     this.messenger.getRoom(id)
       .then((room) => {
         callback(null, room);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
+
+  /**
+   * @param {Room} room
+   * @param {string} room.roomId
+   * @param {Object} room.hooks
+   * @param {Function(Error)} callback
+   */
+  insertRoomHook({ roomId, hooks }, callback) {
+    this.openedRoomId = roomId;
+    this.currentUser.openRoom({
+      roomId,
+      hooks,
+    })
+      .then(() => {
+        callback(null);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
+
+  /**
+   * Called when chat close
+   */
+  deleteRoomHook() {
+    const roomId = this.openedRoomId;
+
+    if (!roomId) return;
+
+    this.currentUser.closeRoom(roomId);
+    this.openedRoomId = '';
+  }
+
+  /**
+   * @param {Message} message
+   * @param {string} message.roomId
+   * @param {string} message.text
+   * @param {Function(Error)} callback
+   */
+  insertMessage({ roomId, text }, callback) {
+    this.currentUser.sendMessage({
+      roomId,
+      text,
+    })
+      .then(() => {
+        callback(null);
       })
       .catch((error) => {
         callback(error);

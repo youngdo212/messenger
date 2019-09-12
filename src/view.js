@@ -22,6 +22,8 @@ export default class View {
     this.$chatBody = this.$chat.querySelector('.chat__body');
     this.$chatName = this.$chat.querySelector('.chat__room-name');
     this.$chatUserNumber = this.$chat.querySelector('.chat__user-number');
+    this.$chatForm = this.$chat.querySelector('.chat__form');
+    this.$chatInput = this.$chat.querySelector('.chat__input');
     this.modal = new ViewModal({
       modal: document.querySelector('.modal'),
       toggle: this.$signInButton,
@@ -161,6 +163,24 @@ export default class View {
   }
 
   /**
+   *
+   * @param {Function(string, string)} handler Called when chat form is submitted
+   */
+  bindSendMessage(handler) {
+    this.$chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const text = this.$chatInput.value;
+      const { roomId } = this.$chat.dataset;
+
+      if (!text || !roomId) return;
+
+      this.$chatInput.value = '';
+      handler(roomId, text);
+    });
+  }
+
+  /**
    * @param {CurrentUser} currentUser
    */
   renderCurrentUserInfo(currentUser) {
@@ -217,9 +237,12 @@ export default class View {
    */
   renderChat(room) {
     this.$chat.classList.add('chat--active');
+    this.$chat.dataset.roomId = room._id;
     this.$chatBody.innerHTML = '';
     this.$chatName.textContent = room.users.map((user) => user.nickname).join(', ');
     this.$chatUserNumber.textContent = room.users.length;
+    this.$chatInput.value = '';
+    this.$chatInput.focus();
   }
 
   /**
@@ -233,6 +256,13 @@ export default class View {
       if ($room.dataset.id !== _id) $room.classList.remove('room--selected');
       else $room.classList.add('room--selected');
     });
+  }
+
+  /**
+   * @param {Message} message
+   */
+  addMessage(message) {
+    this.$chatBody.insertAdjacentHTML('beforeend', this.template.message(message));
   }
 
   /**
@@ -264,8 +294,10 @@ export default class View {
     this.$friendList.innerHTML = '';
     this.$roomList.innerHTML = '';
     this.$chat.classList.remove('chat--active');
+    this.$chat.dataset.roomId = '';
     this.$chatBody.innerHTML = '';
     this.$chatName.textContent = '';
     this.$chatUserNumber.textContent = '';
+    this.$chatInput.value = '';
   }
 }

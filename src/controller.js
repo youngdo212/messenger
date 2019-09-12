@@ -16,6 +16,7 @@ export default class Controller {
     view.bindRemoveFriend(this.removeFriend.bind(this));
     view.bindMessageToFriend(this.messageToFriend.bind(this));
     view.bindOpenChat(this.openChat.bind(this));
+    view.bindSendMessage(this.sendMessage.bind(this));
   }
 
   /**
@@ -78,6 +79,9 @@ export default class Controller {
     });
     this.model.onFriendsUpdated(this.view.renderFriends.bind(this.view));
     this.model.onRoomsUpdated(this.view.renderRooms.bind(this.view));
+    this.model.onMessage((message) => {
+      console.log(message);
+    });
 
     // view rendering
     this.view.renderCurrentUserInfo(currentUser);
@@ -160,6 +164,8 @@ export default class Controller {
 
       this.view.renderChat(room);
       this.view.setRoomSelected(room);
+      this.cancelAllSubscription();
+      this.subscribeToRoom(room);
     });
   }
 
@@ -174,6 +180,44 @@ export default class Controller {
 
       this.view.renderChat(room);
       this.view.setRoomSelected(room);
+      this.cancelAllSubscription();
+      this.subscribeToRoom(room);
+    });
+  }
+
+  /**
+   * @param {Room} room
+   */
+  subscribeToRoom(room) {
+    this.model.insertRoomHook({
+      roomId: room._id,
+      hooks: {
+        onMessage: this.view.addMessage.bind(this.view),
+      },
+    }, (error) => {
+      if (error) return;
+      console.log('hook is attached');
+    });
+  }
+
+  /**
+   * Called when select another room or sign out
+   */
+  cancelAllSubscription() {
+    this.model.deleteRoomHook();
+  }
+
+  /**
+   * @param {string} roomId
+   * @param {string} text
+   */
+  sendMessage(roomId, text) {
+    this.model.insertMessage({
+      roomId,
+      text,
+    }, (error) => {
+      if (error) return;
+      console.log(`message is sent : ${text}`);
     });
   }
 }
