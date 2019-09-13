@@ -237,10 +237,15 @@ export default class View {
   }
 
   /**
+   * keep selected room id and render all new rooms. and set the room selected
    * @param {Array} rooms array of room
    */
   renderRooms(rooms) {
+    const $selectedRoom = this.$roomList.querySelector('.room--selected');
+    const selectedRoomId = $selectedRoom ? $selectedRoom.dataset.id : '';
+
     this.$roomList.innerHTML = rooms.reduce((renderedHTML, room) => renderedHTML + this.template.room(room), '');
+    if (selectedRoomId) this.setRoomSelected({ _id: selectedRoomId });
   }
 
   /**
