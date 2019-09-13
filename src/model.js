@@ -32,10 +32,15 @@ export default class Model {
   }
 
   /**
-   * @param {Function(Friendrequest)} handler Called when current user is requested friend
+   * @param {Function(Friendrequests)} handler Called when current user is requested friend
    */
-  onFriendRequested(handler) {
-    this.currentUser.onFriendRequested(handler);
+  onFriendRequestsUpdated(handler) {
+    const getFriendrequests = async () => {
+      const friendrequests = await this.currentUser.getFriendrequests();
+      handler(friendrequests);
+    };
+
+    this.currentUser.onFriendRequested(getFriendrequests);
   }
 
   /**

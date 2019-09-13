@@ -204,10 +204,11 @@ export default class View {
   /**
    * @param {Array} friendrequests array of friendrequest
    */
-  addFriendrequests(friendrequests) {
-    friendrequests.forEach((friendrequest) => {
-      this.$friendrequestList.insertAdjacentHTML('beforeend', this.template.friendrequest(friendrequest));
-    });
+  renderFriendrequests(friendrequests) {
+    this.$friendrequestList.innerHTML = friendrequests.reduce((renderedHTML, friendrequest) => {
+      const renderedFriendrequest = this.template.friendrequest(friendrequest);
+      return renderedHTML + renderedFriendrequest;
+    }, '');
     this.friendrequestsToggle.setBadgeNumber(this.$friendrequestList.children.length);
   }
 

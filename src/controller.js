@@ -69,15 +69,13 @@ export default class Controller {
    * @param {CurrentUser} currentUser
    */
   async setCurrentUser(currentUser) {
-    const { friendrequests } = currentUser;
+    const friendrequests = await currentUser.getFriendrequests();
     const friends = await currentUser.getFriends({ isPresent: 'desc' });
     const rooms = await currentUser.getRooms();
 
-    // model setting
+    // model setup
     this.model.setCurrentUser(currentUser);
-    this.model.onFriendRequested((friendrequest) => {
-      this.view.addFriendrequests([friendrequest]);
-    });
+    this.model.onFriendRequestsUpdated(this.view.renderFriendrequests.bind(this.view));
     this.model.onFriendsUpdated(this.view.renderFriends.bind(this.view));
     this.model.onRoomsUpdated(this.view.renderRooms.bind(this.view));
     this.model.onMessage((message) => {
@@ -86,7 +84,7 @@ export default class Controller {
 
     // view rendering
     this.view.renderCurrentUserInfo(currentUser);
-    this.view.addFriendrequests(friendrequests);
+    this.view.renderFriendrequests(friendrequests);
     this.view.renderFriends(friends);
     this.view.renderRooms(rooms);
   }
