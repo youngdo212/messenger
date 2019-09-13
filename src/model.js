@@ -63,6 +63,8 @@ export default class Model {
     };
 
     this.currentUser.onRoomAdded(getRooms);
+    this.currentUser.onRoomUpdated(getRooms);
+    this.currentUser.onRoomRemoved(getRooms);
   }
 
   /**
@@ -240,6 +242,21 @@ export default class Model {
       roomId,
       text,
     })
+      .then(() => {
+        callback(null);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
+
+  /**
+   * @param {Room} room
+   * @param {string} room.id
+   * @param {Function(Error)} callback Called when room is removed from current user
+   */
+  deleteRoom({ id }, callback) {
+    this.currentUser.leaveRoom(id)
       .then(() => {
         callback(null);
       })

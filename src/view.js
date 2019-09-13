@@ -24,6 +24,7 @@ export default class View {
     this.$chatUserNumber = this.$chat.querySelector('.chat__user-number');
     this.$chatForm = this.$chat.querySelector('.chat__form');
     this.$chatInput = this.$chat.querySelector('.chat__input');
+    this.$chatLeaveButton = this.$chat.querySelector('.button--leave-room');
     this.modal = new ViewModal({
       modal: document.querySelector('.modal'),
       toggle: this.$signInButton,
@@ -181,6 +182,16 @@ export default class View {
   }
 
   /**
+   * @param {Function(string)} handler Called when leave button in chat is clicked
+   */
+  bindLeaveRoom(handler) {
+    this.$chatLeaveButton.addEventListener('click', () => {
+      const { roomId } = this.$chat.dataset;
+      handler(roomId);
+    });
+  }
+
+  /**
    * @param {CurrentUser} currentUser
    */
   renderCurrentUserInfo(currentUser) {
@@ -246,6 +257,19 @@ export default class View {
   }
 
   /**
+   * clear chat content
+   */
+  clearChat() {
+    this.$chat.classList.remove('chat--active');
+    this.$chat.dataset.roomId = '';
+    this.$chatBody.innerHTML = '';
+    this.$chatName.textContent = '';
+    this.$chatUserNumber.textContent = '';
+    this.$chatInput.value = '';
+    this.$chatInput.blur();
+  }
+
+  /**
    * @param {Room} room
    * @param {string} room._id
    */
@@ -293,11 +317,6 @@ export default class View {
     this.$friendrequestList.classList.remove('friendrequest-list--active');
     this.$friendList.innerHTML = '';
     this.$roomList.innerHTML = '';
-    this.$chat.classList.remove('chat--active');
-    this.$chat.dataset.roomId = '';
-    this.$chatBody.innerHTML = '';
-    this.$chatName.textContent = '';
-    this.$chatUserNumber.textContent = '';
-    this.$chatInput.value = '';
+    this.clearChat();
   }
 }

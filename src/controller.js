@@ -17,6 +17,7 @@ export default class Controller {
     view.bindMessageToFriend(this.messageToFriend.bind(this));
     view.bindOpenChat(this.openChat.bind(this));
     view.bindSendMessage(this.sendMessage.bind(this));
+    view.bindLeaveRoom(this.leaveRoom.bind(this));
   }
 
   /**
@@ -218,6 +219,20 @@ export default class Controller {
     }, (error) => {
       if (error) return;
       console.log(`message is sent : ${text}`);
+    });
+  }
+
+  /**
+   * @param {string} roomId
+   */
+  leaveRoom(roomId) {
+    this.model.deleteRoom({
+      id: roomId,
+    }, (error) => {
+      if (error) console.log(error);
+
+      this.view.clearChat();
+      this.cancelAllSubscription();
     });
   }
 }
