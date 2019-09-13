@@ -203,6 +203,8 @@ export default class Model {
    * @param {Room} room
    * @param {string} room.roomId
    * @param {Object} room.hooks
+   * @param {Function(message)} room.hooks.onMessage
+   * @param {Function(room)} room.hooks.onUpdate
    * @param {Function(Error)} callback
    */
   insertRoomHook({ roomId, hooks }, callback) {

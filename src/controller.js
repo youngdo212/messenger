@@ -163,6 +163,7 @@ export default class Controller {
     }, (error, room) => {
       if (error) return;
 
+      this.view.clearChat();
       this.view.renderChat(room);
       this.view.setRoomSelected(room);
       this.cancelAllSubscription();
@@ -179,6 +180,7 @@ export default class Controller {
     }, (error, room) => {
       if (error) return;
 
+      this.view.clearChat();
       this.view.renderChat(room);
       this.view.setRoomSelected(room);
       this.cancelAllSubscription();
@@ -194,6 +196,7 @@ export default class Controller {
       roomId: room._id,
       hooks: {
         onMessage: this.view.addMessage.bind(this.view),
+        onUpdate: this.view.renderChat.bind(this.view),
       },
     }, (error) => {
       if (error) return;

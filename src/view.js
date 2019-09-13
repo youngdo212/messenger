@@ -249,7 +249,6 @@ export default class View {
   renderChat(room) {
     this.$chat.classList.add('chat--active');
     this.$chat.dataset.roomId = room._id;
-    this.$chatBody.innerHTML = '';
     this.$chatName.textContent = room.users.map((user) => user.nickname).join(', ');
     this.$chatUserNumber.textContent = room.users.length;
     this.$chatInput.value = '';
