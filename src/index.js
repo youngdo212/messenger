@@ -37,9 +37,6 @@ messenger.onUserStateChanged((user) => {
   // });
 
   // currentUser = user;
-  // currentUser.onFriendAdded(friendList.add.bind(friendList));
-  // currentUser.onFriendRemoved(friendList.remove.bind(friendList));
-  // currentUser.onRoomAdded(roomList.add.bind(roomList));
   // chat.onMessageSubmitted(currentUser.sendMessage.bind(currentUser));
   // chat.onRoomOpened(currentUser.openRoom.bind(currentUser));
   // chat.onRoomClosed(currentUser.closeRoom.bind(currentUser));
@@ -47,6 +44,4 @@ messenger.onUserStateChanged((user) => {
   // currentUser.onMessage((message) => {
   //   alert(`(currentUser.onMessage)${message.sender.nickname} : ${message.type === 'text' ? message.text : message.type}`);
   // });
-  // currentUser.onRoomRemoved(roomList.remove.bind(roomList));
-  // currentUser.onRoomUpdated(roomList.update.bind(roomList));
 });
