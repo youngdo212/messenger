@@ -430,8 +430,12 @@ body {
   float: left; }
 
 .chat__room-name {
+  width: 300px;
   font-size: 1.3rem;
-  line-height: 1.3; }
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 .chat__room-detail {
   box-sizing: border-box; }
