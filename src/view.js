@@ -166,8 +166,8 @@ export default class View {
     this.$roomList.addEventListener('click', ({ target }) => {
       const $room = target.closest('.room');
 
-      if ($room.classList.contains('room--selected')) return;
       if (!$room) return;
+      if ($room.classList.contains('room--selected')) return;
 
       handler($room.dataset.id);
     });
