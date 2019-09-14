@@ -1,4 +1,5 @@
-import ViewModal from './viewModal';
+import ViewAuthModal from './viewAuthModal';
+import ViewUserSelectModal from './viewUserSelectModal';
 import ViewFriendrequestToggle from './viewFriendrequestToggle';
 import ViewFriendPopover from './viewFriendPopover';
 
@@ -25,10 +26,17 @@ export default class View {
     this.$chatForm = this.$chat.querySelector('.chat__form');
     this.$chatInput = this.$chat.querySelector('.chat__input');
     this.$chatLeaveButton = this.$chat.querySelector('.button--leave-room');
-    this.modal = new ViewModal({
-      modal: document.querySelector('.modal'),
+    this.$chatInviteButton = this.$chat.querySelector('.button--invite-user');
+    this.authModal = new ViewAuthModal({
+      modal: document.querySelector('.auth-modal'),
       toggle: this.$signInButton,
     });
+    this.userSelectModal = new ViewUserSelectModal(
+      template,
+      {
+        modal: document.querySelector('.modal--user-select'),
+      },
+    );
     this.friendrequestsToggle = new ViewFriendrequestToggle({
       toggle: document.querySelector('.friendrequest-toggle'),
       badge: document.querySelector('.friendrequest-badge'),
@@ -36,8 +44,9 @@ export default class View {
     this.friendPopover = new ViewFriendPopover({
       popover: document.querySelector('.friend-popover'),
     });
+    this.handleInviteUserToRoom = null;
 
-    this.modal.bindClose(this.closeModal.bind(this));
+    this.authModal.bindClose(this.closeModal.bind(this));
     this.friendrequestsToggle.bindToggle(this.toggleFriendrequestList.bind(this));
     this.$friendList.addEventListener('click', ({ target }) => {
       if (target.className !== 'friend__picture') return;
@@ -193,6 +202,27 @@ export default class View {
   }
 
   /**
+   * @param {Function(string[])} handler Called when confirm button clicked in view.userSelectModal
+   */
+  bindInviteUserToRoom(handler) {
+    this.handleInviteUserToRoom = handler;
+  }
+
+  /**
+   * @param {Function} handler Called when invite button in chat clicked
+   */
+  bindOpenUserSelect(handler) {
+    this.$chatInviteButton.addEventListener('click', () => {
+      this.userSelectModal.bindConfim((selectedUserIds) => {
+        if (selectedUserIds.length) this.handleInviteUserToRoom(selectedUserIds);
+        this.closeUserSelect();
+      });
+      handler();
+    });
+  }
+
+
+  /**
    * @param {CurrentUser} currentUser
    */
   renderCurrentUserInfo(currentUser) {
@@ -299,7 +329,7 @@ export default class View {
    * close modal and reset form data
    */
   closeModal() {
-    this.modal.close();
+    this.authModal.close();
     this.$signInForm.reset();
     this.$signUpForm.reset();
   }
@@ -309,6 +339,21 @@ export default class View {
    */
   toggleFriendrequestList() {
     this.$friendrequestList.classList.toggle('friendrequest-list--active');
+  }
+
+  /**
+   * @param {Array} users
+   */
+  renderUserSelect(users) {
+    this.userSelectModal.render(users);
+  }
+
+  /**
+   * Called when user select is confirmed
+   */
+  closeUserSelect() {
+    this.userSelectModal.clear();
+    this.userSelectModal.unbindConfirm();
   }
 
   /**

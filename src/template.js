@@ -74,6 +74,29 @@ const selectedUser = ({ _id, nickname }) => `
   </div>
   `;
 
+const userInUserSelect = ({ _id, nickname }) => `
+  <div class="user-select__user" data-id="${_id}">
+    <div class="user-select__user-avatar"></div>
+    <span class="user-select__user-nickname">${nickname}</span>
+  </div>
+`;
+
+const selectedUserInUserSelect = ({ id, nickname }) => `
+  <div class="user-select__selected-user tag" data-id="${id}">
+    <span class="tag__name">${nickname}</span>
+    <button class="tag__remove-button"></button>
+  </div>
+`;
+
 export default {
-  currentUserInfo, resultItem, resultNoItem, friendrequest, friend, room, message, selectedUser,
+  currentUserInfo,
+  resultItem,
+  resultNoItem,
+  friendrequest,
+  friend,
+  room,
+  message,
+  selectedUser,
+  userInUserSelect,
+  selectedUserInUserSelect,
 };

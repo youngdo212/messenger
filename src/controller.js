@@ -18,6 +18,8 @@ export default class Controller {
     view.bindOpenChat(this.openChat.bind(this));
     view.bindSendMessage(this.sendMessage.bind(this));
     view.bindLeaveRoom(this.leaveRoom.bind(this));
+    view.bindInviteUserToRoom(this.inviteUserToRoom.bind(this));
+    view.bindOpenUserSelect(this.openUserSelect.bind(this));
   }
 
   /**
@@ -157,7 +159,7 @@ export default class Controller {
    */
   messageToFriend(id) {
     this.model.insertRoom({
-      inviteUserIds: [id],
+      addUserIds: [id],
     }, (error, room) => {
       if (error) return;
 
@@ -234,6 +236,28 @@ export default class Controller {
 
       this.view.clearChat();
       this.cancelAllSubscription();
+    });
+  }
+
+  /**
+   * @param {string[]} userIds
+   */
+  inviteUserToRoom(userIds) {
+    this.model.insertRoomUsers({
+      userIds,
+    }, (error) => {
+      if (error) console.log(error);
+    });
+  }
+
+  /**
+   * Called when chat invite button is clicked
+   */
+  openUserSelect() {
+    this.model.findFriends((error, friends) => {
+      if (error) return;
+
+      this.view.renderUserSelect(friends);
     });
   }
 }

@@ -44,13 +44,13 @@ block content
       .chat__footer
         form.chat__form(action="/")
           input.chat__input
-  .modal
-    .modal__dialog
-      .modal__content-container
-        .modal__content
-          .modal__header
-            .modal__title Sign In
-          .modal__body
+  .auth-modal
+    .auth-modal__dialog
+      .auth-modal__content-container
+        .auth-modal__content
+          .auth-modal__header
+            .auth-modal__title Sign In
+          .auth-modal__body
             form.form.form--sign-in
               .form__member
                 input.form__input(
@@ -67,11 +67,11 @@ block content
                   required
                 )
               button.button.button--submit(type="submit") Sign in
-          .modal__content-slider.modal__content-slider--next Sign up #{'>'}
-        .modal__content
-          .modal__header
-            .modal__title Sign Up
-          .modal__body
+          .auth-modal__content-slider.auth-modal__content-slider--next Sign up #{'>'}
+        .auth-modal__content
+          .auth-modal__header
+            .auth-modal__title Sign Up
+          .auth-modal__body
             form.form.form--sign-up
               .form__member
                 input.form__input(
@@ -95,7 +95,30 @@ block content
                   required
                 )
               button.button.button--submit(type="submit") Sign up
-          .modal__content-slider.modal__content-slider--back #{'<'} Sign in
-  .selected-user-list
-    .selected-user-wrap
-    button.button.button--confirm Confirm
+          .auth-modal__content-slider.auth-modal__content-slider--back #{'<'} Sign in
+  .modal.modal--user-select
+    .modal__dialog
+      .modal__content.user-select
+        .user-select__header Select User
+        .user-select__selected-user-list
+          //- .user-select__selected-user.tag
+          //-   span.tag__name ironman
+          //-   button.tag__remove-button
+          //- .user-select__selected-user.tag
+          //-   span.tag__name captain america
+          //-   button.tag__remove-button
+          //- .user-select__selected-user.tag
+          //-   span.tag__name hulk
+          //-   button.tag__remove-button
+          //- .user-select__selected-user.tag
+          //-   span.tag__name spider-man
+          //-   button.tag__remove-button
+          //- .user-select__selected-user.tag
+          //-   span.tag__name thor
+          //-   button.tag__remove-button
+          //- .user-select__selected-user.tag
+          //-   span.tag__name hawkeye
+          //-   button.tag__remove-button
+        .user-select__user-list
+        .user-select__footer
+          button.user-select__confirm-button.button confirm

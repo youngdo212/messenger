@@ -281,4 +281,35 @@ export default class Model {
         callback();
       });
   }
+
+  /**
+   * @param {Function(Error[, Array])} callback Called after find operation
+   */
+  findFriends(callback) {
+    this.currentUser.getFriends()
+      .then((friends) => {
+        callback(null, friends);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
+
+  /**
+   * @param {Object} room
+   * @param {string[]} room.userIds inserted user id array
+   * @param {Function(Error)} callback
+   */
+  insertRoomUsers({ userIds }, callback) {
+    this.currentUser.addUsersToRoom({
+      roomId: this.openedRoomId,
+      userIds,
+    })
+      .then(() => {
+        callback(null);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
 }
