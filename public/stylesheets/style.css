@@ -656,6 +656,7 @@ body {
     .button--theme-emphasis:hover {
       box-shadow: 1px 1px 5px #999; }
   .button--submit {
+    height: auto;
     box-sizing: border-box;
     border: 1px solid #ccc;
     outline: none;

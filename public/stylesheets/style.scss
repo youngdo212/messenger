@@ -776,6 +776,7 @@ body {
   // will be removed
 
   &--submit {
+    height: auto;
     box-sizing: border-box;
     border: 1px solid #ccc;
     outline: none;
