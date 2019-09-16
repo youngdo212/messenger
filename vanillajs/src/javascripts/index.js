@@ -4,7 +4,7 @@ import View from './view';
 import Controller from './controller';
 
 const easychat = new Easychat({
-  apiKey: '2b8ed76c93763b0',
+  apiKey: '26498f3ddfbe91d',
 });
 
 const model = new Model(easychat);
