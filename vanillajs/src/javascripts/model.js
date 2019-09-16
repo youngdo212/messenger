@@ -2,10 +2,10 @@ import { EventEmitter } from './helper';
 
 export default class Model {
   /**
-   * @param {Messenger} messenger messenger sdk
+   * @param {Easychat} easychat easychat javascript sdk
    */
-  constructor(messenger) {
-    this.messenger = messenger;
+  constructor(easychat) {
+    this.easychat = easychat;
     this.currentUser = null;
     this.openedRoomId = '';
     this.eventEmitter = new EventEmitter();
@@ -15,7 +15,7 @@ export default class Model {
    * @param {Function(Error[, CurrentUser])} callback
    */
   init(callback) {
-    this.messenger.initializeApp()
+    this.easychat.initializeApp()
       .then((currentUser) => {
         callback(null, currentUser);
       })
@@ -84,7 +84,7 @@ export default class Model {
    * @param {function(Error, CurrentUser)} callback Called when currentUser is inserted or not
    */
   insertCurrentUser({ email, password, nickname }, callback) {
-    this.messenger.createUser(email, password, nickname)
+    this.easychat.createUser(email, password, nickname)
       .then((currentUser) => {
         callback(null, currentUser);
       })
@@ -99,7 +99,7 @@ export default class Model {
    * @param {function(Error, CurrentUser)} callback Called when currentUser is found or not
    */
   findCurrentUser({ email, password }, callback) {
-    this.messenger.signIn(email, password)
+    this.easychat.signIn(email, password)
       .then((currentUser) => {
         callback(null, currentUser);
       })
@@ -136,7 +136,7 @@ export default class Model {
    * @param {Function(Array)} callback Called with users when all users are found
    */
   findUsers({ fields, value }, callback) {
-    const promises = fields.map((field) => this.messenger.getUsers(field, value));
+    const promises = fields.map((field) => this.easychat.getUsers(field, value));
     Promise.all(promises)
       .then((users) => {
         const flattedUsers = users.flat();
@@ -195,7 +195,7 @@ export default class Model {
    * @param {Function(Error, Room)} callback
    */
   findRoom({ id }, callback) {
-    this.messenger.getRoom(id)
+    this.easychat.getRoom(id)
       .then((room) => {
         callback(null, room);
       })
@@ -276,7 +276,7 @@ export default class Model {
    * @param {Function} callback Function called when clearing currentUser
    */
   clearCurrentUser(callback) {
-    this.messenger.signOut()
+    this.easychat.signOut()
       .then(() => {
         callback();
       });
