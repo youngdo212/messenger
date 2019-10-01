@@ -1,0 +1,7 @@
+.room-list {
+  box-sizing: border-box;
+  float: left;
+  width: $room-list-width; height: 100%;
+  border-right: 1px solid #ccc;
+  overflow: scroll;
+}
