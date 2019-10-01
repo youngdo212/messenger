@@ -1,0 +1,98 @@
+.chat {
+  box-sizing: border-box;
+  float: left;
+  width: $chat-width; height: 100%;
+
+  &--active .chat__room-info, &--active .chat__room-option-list {
+    display: block;
+  }
+}
+
+.chat__header {
+  box-sizing: border-box;
+  width: 100%; height: $chat-header-height;
+  border-bottom: 1px solid #ccc;
+  padding: 15px 20px;
+  overflow: hidden;
+}
+
+.chat__room-info {
+  display: none;
+  height: 100%;
+  float: left;
+}
+
+.chat__room-name {
+  width: 300px;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat__room-detail {
+  box-sizing: border-box;
+}
+
+.chat__room-option-list {
+  float: right;
+  display: none;
+  height: 100%;
+  
+  &::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 0px; height: 100%;
+  }
+}
+
+.chat__room-option {
+  display: inline-block;
+  margin-right: 20px;
+
+  &:last-child {
+    margin-right: 0px;
+  }
+}
+
+.chat__user-icon {
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-right: 5px;
+  color: #777;
+}
+
+.chat__user-number {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.chat__body {
+  box-sizing: border-box;
+  width: 100%; height: $chat-body-height;
+  overflow: scroll;
+  padding: 20px 0px;
+}
+
+.chat__footer {
+  box-sizing: border-box;
+  width: 100%; height: $chat-footer-height;
+  padding: 0px 15px 20px 15px;
+}
+
+.chat__form {
+  width: 100%; height: 100%;
+}
+
+.chat__input {
+  box-sizing: border-box;
+  width: 100%; height: 100%;
+  border: 2px solid #888;
+  outline: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  padding: 0px 8px;
+}
