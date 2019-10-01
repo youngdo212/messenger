@@ -34,7 +34,7 @@ const friendrequest = ({ _id, from: sender }) => `
 
 const friend = ({ _id, nickname, isPresent }) => `
     <div class="friend ${isPresent ? 'friend--signed-in' : ''}" data-id="${_id}" data-nickname="${nickname}">
-      <div class="friend-content">
+      <div class="friend__content">
         <div class="friend__picture"></div>
       </div>
     </div>`;
