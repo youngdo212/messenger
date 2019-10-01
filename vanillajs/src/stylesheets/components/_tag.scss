@@ -1,0 +1,49 @@
+.tag {
+  box-sizing: border-box;
+  background: rgba(190, 218, 255, 0.726);
+  padding: 4px 6px 4px 9px;
+  border-radius: 5px;
+}
+
+.tag__name {
+  color: rgb(0, 109, 255);
+  margin-right: 2px;
+  vertical-align: middle;
+}
+
+.tag__remove-button {
+  display: inline-block;
+  position: relative;
+  width: 22px; height: 22px;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+  padding: 0px;
+  background: transparent;
+  vertical-align: middle;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  &::before, &::after {
+    content:'';
+    position: absolute;
+    box-sizing: border-box;
+    display: block;
+    width: 50%; height: 50%;
+  }
+  
+  &::before {
+    top: 2px; left: 2px;
+    border-right: 1px solid rgba(28, 43, 255, 0.795);
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    top: 2px; right: 2px;
+    border-left: 1px solid rgba(28, 43, 255, 0.795);
+    transform: rotate(-45deg);
+  }
+}

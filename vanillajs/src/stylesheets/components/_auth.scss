@@ -1,0 +1,35 @@
+.auth {
+  box-sizing: border-box;
+  width: 50%; height: 100%;
+}
+
+.auth__header {
+  box-sizing: border-box;
+  height: 50px;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
+}
+
+.auth__title {
+  float: left;
+  vertical-align: middle;
+  font-size: 1.7rem;
+}
+
+.auth__body {
+  box-sizing: border-box;
+  height: 300px;
+  text-align: center;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 0px; height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.auth__form {
+  display: inline-block;
+  vertical-align: middle;
+}

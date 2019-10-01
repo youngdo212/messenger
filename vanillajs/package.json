@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start:dev": "webpack-dev-server --mode=development",
-    "build": "webpack --mode=production && sass src/stylesheets:dist",
-    "build:dev": "webpack --mode=development && sass src/stylesheets:dist"
+    "build": "webpack --mode=production && sass src/stylesheets/main.scss dist/style.css",
+    "build:dev": "webpack --mode=development && sass src/stylesheets/main.scss dist/style.css"
   },
   "dependencies": {},
   "devDependencies": {

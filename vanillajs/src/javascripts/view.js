@@ -28,7 +28,7 @@ export default class View {
     this.$chatLeaveButton = this.$chat.querySelector('.button--leave-room');
     this.$chatInviteButton = this.$chat.querySelector('.button--invite-user');
     this.authModal = new ViewAuthModal({
-      modal: document.querySelector('.auth-modal'),
+      modal: document.querySelector('.modal--auth'),
       toggle: this.$signInButton,
     });
     this.userSelectModal = new ViewUserSelectModal(

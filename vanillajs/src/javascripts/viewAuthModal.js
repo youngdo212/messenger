@@ -7,18 +7,18 @@ export default class ViewAuthModal {
   constructor({ modal, toggle }) {
     this.$modal = modal;
     this.$toggle = toggle;
-    this.$modalContentContainer = modal.querySelector('.auth-modal__content-container');
-    this.$modalContentSliderNext = modal.querySelector('.auth-modal__content-slider--next');
-    this.$modalContentSliderBack = modal.querySelector('.auth-modal__content-slider--back');
+    this.$modalContentContainer = modal.querySelector('.carousel__inner');
+    this.$modalContentSliderNext = modal.querySelector('.carousel__slider--next');
+    this.$modalContentSliderBack = modal.querySelector('.carousel__slider--back');
 
     this.$toggle.addEventListener('click', () => {
       this.open();
     });
     this.$modalContentSliderNext.addEventListener('click', () => {
-      this.$modalContentContainer.classList.add('auth-modal__content-container--next');
+      this.$modalContentContainer.classList.add('carousel__inner--next');
     });
     this.$modalContentSliderBack.addEventListener('click', () => {
-      this.$modalContentContainer.classList.remove('auth-modal__content-container--next');
+      this.$modalContentContainer.classList.remove('carousel__inner--next');
     });
   }
 
@@ -37,14 +37,14 @@ export default class ViewAuthModal {
    * open Modal
    */
   open() {
-    this.$modal.classList.add('auth-modal--active');
+    this.$modal.classList.add('modal--active');
   }
 
   /**
    * close Modal
    */
   close() {
-    this.$modalContentContainer.classList.remove('auth-modal__content-container--next');
-    this.$modal.classList.remove('auth-modal--active');
+    this.$modalContentContainer.classList.remove('carousel__inner--next');
+    this.$modal.classList.remove('modal--active');
   }
 }

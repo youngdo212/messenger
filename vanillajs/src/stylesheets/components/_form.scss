@@ -1,0 +1,22 @@
+.form {
+  width: 250px;
+}
+
+.form__member {
+  width: 100%; height: 40px;
+  margin-bottom: 20px;
+}
+
+.form__input {
+  box-sizing: border-box;
+  width: 100%; height: 100%;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 1.3rem;
+  padding: 5px 8px;
+  font-weight: lighter;
+}
+
+.form__button {
+  margin-top: 10px;
+}

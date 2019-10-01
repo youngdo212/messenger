@@ -48,58 +48,59 @@ html
         .chat__footer
           form.chat__form(action="/")
             input.chat__input
-    .auth-modal
-      .auth-modal__dialog
-        .auth-modal__content-container
-          .auth-modal__content
-            .auth-modal__header
-              .auth-modal__title Sign In
-            .auth-modal__body
-              form.form.form--sign-in
-                .form__member
-                  input.form__input(
-                    type="text"
-                    name="email"
-                    placeholder="email"
-                    required
-                  )
-                .form__member
-                  input.form__input(
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    required
-                  )
-                button.button.button--submit(type="submit") Sign in
-            .auth-modal__content-slider.auth-modal__content-slider--next Sign up #{'>'}
-          .auth-modal__content
-            .auth-modal__header
-              .auth-modal__title Sign Up
-            .auth-modal__body
-              form.form.form--sign-up
-                .form__member
-                  input.form__input(
-                    type="text"
-                    name="email"
-                    placeholder="email"
-                    required
-                  )
-                .form__member
-                  input.form__input(
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    required
-                  )
-                .form__member
-                  input.form__input(
-                    type="text"
-                    name="nickname"
-                    placeholder="nickname"
-                    required
-                  )
-                button.button.button--submit(type="submit") Sign up
-            .auth-modal__content-slider.auth-modal__content-slider--back #{'<'} Sign in
+    .modal.modal--auth
+      .modal__dialog
+        .modal__content.carousel
+          .carousel__inner
+            .carousel__item.auth
+              .auth__header
+                .auth__title Sign In
+              .auth__body
+                form.auth__form.form.form--sign-in
+                  .form__member
+                    input.form__input(
+                      type="text"
+                      name="email"
+                      placeholder="email"
+                      required
+                    )
+                  .form__member
+                    input.form__input(
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      required
+                    )
+                  button.form__button.button.button--theme-round(type="submit") Sign in
+              .carousel__slider.carousel__slider--next Sign up #{'>'}
+            .carousel__item.auth
+              .auth__header
+                .auth__title Sign Up
+              .auth__body
+                form.auth__form.form.form--sign-up
+                  .form__member
+                    input.form__input(
+                      type="text"
+                      name="email"
+                      placeholder="email"
+                      required
+                    )
+                  .form__member
+                    input.form__input(
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      required
+                    )
+                  .form__member
+                    input.form__input(
+                      type="text"
+                      name="nickname"
+                      placeholder="nickname"
+                      required
+                    )
+                  button.form__button.button.button--theme-round(type="submit") Sign up
+              .carousel__slider.carousel__slider--back #{'<'} Sign in
     .modal.modal--user-select
       .modal__dialog
         .modal__content.user-select

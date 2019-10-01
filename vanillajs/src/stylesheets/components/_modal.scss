@@ -1,0 +1,23 @@
+.modal {
+  display: none;
+  position: absolute;
+  top: 0px; left: 0px;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 3;
+
+  &--active {
+    display: block;
+  }
+}
+
+.modal__dialog {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.modal__content {
+  border-radius: 5px;
+  overflow: hidden;
+}

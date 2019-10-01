@@ -1,0 +1,37 @@
+.carousel {
+  width: 400px; height: 350px;
+}
+
+.carousel__inner {
+  width: 200%; height: 100%;
+  background: #fff;
+  transition: transform .5s ease;
+
+  &--next {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.carousel__item {
+  position: relative;
+  float: left;
+}
+
+.carousel__slider {
+  font-weight: 300;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &--next {
+    position: absolute;
+    top: 310px; right: 30px;
+  }
+
+  &--back {
+    position: absolute;
+    top: 310px; left: 30px;
+  }
+}
