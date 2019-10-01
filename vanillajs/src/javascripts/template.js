@@ -26,9 +26,9 @@ const resultNoItem = () => '<div class="search__no-item">no result</div>';
 const friendrequest = ({ _id, from: sender }) => `
   <div class="friendrequest" data-id="${_id}">
     <div class="friendrequest__nickname">${sender.nickname}</div>
-    <div class="friendrequest__buttons">
-      <button class="button button--accept-friend" data-answer="accept">Accept</button>
-      <button class="button button--decline-friend" data-answer="decline">Decline</button>
+    <div class="friendrequest__button-list">
+      <button class="friendrequest__button button" data-answer="accept">Accept</button>
+      <button class="friendrequest__button button" data-answer="decline">Decline</button>
     </div>
   </div>`;
 
