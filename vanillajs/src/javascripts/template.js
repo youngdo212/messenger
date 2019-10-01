@@ -55,17 +55,17 @@ const room = ({
 const message = ({
   type, sender, createdAt, text,
 }) => (type === 'text' ? `
-  <div class="chat__message">
-    <div class="chat__message-picture"></div>
-    <div class="chat__message-content">
-      <div class="chat__message-header">
-        <div class="chat__message-sender">${sender.nickname}</div>
-        <div class="chat__message-created-at">${formatDateToTime(new Date(createdAt))}</div>
+  <div class="message message--theme-text">
+    <div class="message__picture"></div>
+    <div class="message__content">
+      <div class="message__header">
+        <div class="message__sender">${sender.nickname}</div>
+        <div class="message__created-at">${formatDateToTime(new Date(createdAt))}</div>
       </div>
-      <div class="chat__message-body">${text}</div>
+      <div class="message__body">${text}</div>
     </div>
   </div>` : `
-  <div class="chat__status-log">${text}</div>`);
+  <div class="message message--theme-status">${text}</div>`);
 
 const selectedUser = ({ _id, nickname }) => `
   <div class="selected-user" data-id="${_id}">
