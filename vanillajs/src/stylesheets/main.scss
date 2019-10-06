@@ -7,94 +7,10 @@ $chat-header-height: 75px;
 $chat-footer-height: 60px;
 $chat-body-height: calc(100vh - #{$header-height} - #{$chat-header-height} - #{$chat-footer-height});
 
-body {
-  margin: 0px;
-}
+body { margin: 0px; }
 
-.content {
-  position: relative;
-  width: 100vw; height: $content-height;
-
-  // clearfix
-  &:after {
-    content: ' ';
-    visibility: hidden;
-    display: block;
-    height: 0;
-    clear: both;
-  }
-}
-
-.button {
-  box-sizing: border-box;
-  height: 25px;
-  border: 1px solid #ccc;
-  outline: none;
-  cursor: pointer;
-  vertical-align: middle;
-  font-size: 0.9rem;
-
-  &:hover {
-    box-shadow: 1px 1px 5px #b0b0b0;
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  &--theme-warn {
-    border: 1px solid #f55;
-    color: #f55;
-
-    &:hover {
-      box-shadow: 1px 1px 5px #b0b0b0;
-    }
-  }
-
-  &--theme-emphasis {
-    border: 1px solid #777;
-    font-weight: 600;
-
-    &:hover {
-      box-shadow: 1px 1px 5px #999;
-    }
-  }
-
-  &--theme-round {
-    height: auto;
-    padding: 8px 15px;
-    font-size: 1rem;
-    border-radius: 10px;
-
-    &:hover {
-      background: #f5f5f5;
-    }
-  }
-
-  &--confirm {
-    display: inline-block;
-    box-sizing: border-box;
-    height: 25px;
-    border: 1px solid #ccc;
-    outline: none;
-    cursor: pointer;
-    vertical-align: middle;
-    font-size: 0.9rem;
-
-    &:hover {
-      box-shadow: 1px 1px 5px #b0b0b0;
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-
-  &--confirm {
-    margin-top: 10px;
-  }
-}
-
+@import 'components/content';
+@import 'components/button';
 @import 'components/search';
 @import 'components/friendrequest-list';
 @import 'components/badge';
