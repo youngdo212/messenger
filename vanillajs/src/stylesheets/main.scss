@@ -1,13 +1,5 @@
-$header-height: 50px;
-$content-height: calc(100vh - #{$header-height});
-$friend-list-width: 70px;
-$room-list-width: 350px;
-$chat-width: calc(100vw - #{$friend-list-width} - #{$room-list-width});
-$chat-header-height: 75px;
-$chat-footer-height: 60px;
-$chat-body-height: calc(100vh - #{$header-height} - #{$chat-header-height} - #{$chat-footer-height});
-
-body { margin: 0px; }
+@import 'base/reset';
+@import 'base/variables';
 
 @import 'components/content';
 @import 'components/button';
