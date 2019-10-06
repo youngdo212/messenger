@@ -3,14 +3,7 @@ import { formatDateToDate, formatDateToTime } from './helper';
  *
  * @param {CurrentUser} currentUser
  */
-const currentUserInfo = ({ nickname }) => `
-  <div class="delimeter">|</div>
-  <div class="current-user">
-    <div class="current-user__picture"></div>
-    <div class="current-user__nickname">${nickname}</div>
-  </div>
-  <div class="delimeter">|</div>
-  `;
+const currentUser = ({ nickname }) => `${nickname}`;
 
 const resultItem = ({ _id, email, nickname }) => `
   <div class="search__user-item" data-id="${_id}">
@@ -89,7 +82,7 @@ const selectedUserInUserSelect = ({ id, nickname }) => `
 `;
 
 export default {
-  currentUserInfo,
+  currentUser,
   resultItem,
   resultNoItem,
   friendrequest,

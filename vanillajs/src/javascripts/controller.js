@@ -85,7 +85,7 @@ export default class Controller {
     });
 
     // view rendering
-    this.view.renderCurrentUserInfo(currentUser);
+    this.view.renderCurrentUser(currentUser);
     this.view.renderFriendrequests(friendrequests);
     this.view.renderFriends(friends);
     this.view.renderRooms(rooms);

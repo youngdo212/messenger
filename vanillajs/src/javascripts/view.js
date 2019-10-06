@@ -11,9 +11,9 @@ export default class View {
     this.template = template;
     this.$signUpForm = document.querySelector('.form--sign-up');
     this.$signInForm = document.querySelector('.form--sign-in');
-    this.$currentUserInfo = document.querySelector('.current-user-info');
-    this.$signInButton = document.querySelector('.sign-in');
-    this.$signOutButton = document.querySelector('.sign-out');
+    this.$currentUser = document.querySelector('.current-user');
+    this.$signInButton = document.querySelector('.menu__item--sign-in');
+    this.$signOutButton = document.querySelector('.menu__item--sign-out');
     this.$friendrequestList = document.querySelector('.friendrequest-list');
     this.$searchInput = document.querySelector('input');
     this.$searchResult = document.querySelector('.search__result');
@@ -38,8 +38,8 @@ export default class View {
       },
     );
     this.friendrequestsToggle = new ViewFriendrequestToggle({
-      toggle: document.querySelector('.friendrequest-toggle'),
-      badge: document.querySelector('.friendrequest-badge'),
+      toggle: document.querySelector('.menu__item--friendrequests'),
+      badge: document.querySelector('.menu__badge--for-friendrequests'),
     });
     this.friendPopover = new ViewFriendPopover({
       popover: document.querySelector('.friend-popover'),
@@ -225,10 +225,11 @@ export default class View {
   /**
    * @param {CurrentUser} currentUser
    */
-  renderCurrentUserInfo(currentUser) {
-    this.$currentUserInfo.innerHTML = this.template.currentUserInfo(currentUser);
-    this.$signInButton.classList.remove('sign-in--active');
-    this.$signOutButton.classList.add('sign-out--active');
+  renderCurrentUser(currentUser) {
+    this.$currentUser.innerHTML = this.template.currentUser(currentUser);
+    this.$currentUser.classList.remove('menu__item--theme-hide');
+    this.$signInButton.classList.add('menu__item--theme-hide');
+    this.$signOutButton.classList.remove('menu__item--theme-hide');
     this.friendrequestsToggle.active();
   }
 
@@ -360,9 +361,10 @@ export default class View {
    * clear all rendered contents and return to initial state (triggered when current user singed out)
    */
   clear() {
-    this.$currentUserInfo.innerHTML = '';
-    this.$signInButton.classList.add('sign-in--active');
-    this.$signOutButton.classList.remove('sign-out--active');
+    this.$currentUser.innerHTML = '';
+    this.$currentUser.classList.add('menu__item--theme-hide');
+    this.$signInButton.classList.remove('menu__item--theme-hide');
+    this.$signOutButton.classList.add('menu__item--theme-hide');
     this.friendrequestsToggle.deactive();
     this.$friendrequestList.innerHTML = '';
     this.$friendrequestList.classList.remove('friendrequest-list--active');

@@ -1,0 +1,16 @@
+.friendrequest-list {
+  display: none;
+  box-sizing: border-box;
+  position: absolute;
+  top: 85%; right: 70px;
+  width: 320px;
+  border: 1px solid #ccc;
+  background: #fff;
+  box-shadow: 1px 1px 5px #ccc;
+  cursor: default;
+  z-index: 1;
+
+  &--active {
+    display: block;
+  }
+}

@@ -22,14 +22,14 @@ export default class ViewFriendrequestToggle {
    * make toggle visible when current user sign in
    */
   active() {
-    this.$toggle.classList.add('friendrequest-toggle--active');
+    this.$toggle.classList.remove('menu__item--theme-hide');
   }
 
   /**
    * make toggle invisible when current user sign out
    */
   deactive() {
-    this.$toggle.classList.remove('friendrequest-toggle--active');
+    this.$toggle.classList.add('menu__item--theme-hide');
   }
 
   /**
@@ -37,9 +37,9 @@ export default class ViewFriendrequestToggle {
    */
   setBadgeNumber(number) {
     if (number === 0) {
-      this.$badge.classList.remove('friendrequest-badge--active');
+      this.$badge.classList.add('badge--theme-hide');
     } else {
-      this.$badge.classList.add('friendrequest-badge--active');
+      this.$badge.classList.remove('badge--theme-hide');
       this.$badge.textContent = number;
     }
   }

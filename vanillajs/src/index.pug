@@ -3,18 +3,19 @@ html
   head
     title= title
     link(rel='stylesheet', href='style.css')
-    script(src="https://kit.fontawesome.com/ac81471b85.js")
+    script(async defer src="https://kit.fontawesome.com/ac81471b85.js")
   body
     .header
       .search
         input.search__input
         .search__result
-      .sign-in.sign-in--active Sign in
-      .sign-out Sign Out
-      .current-user-info
-      .friendrequest-toggle Friend requests
-        .friendrequest-badge
-      .friendrequest-list
+      .header__menu.menu
+        .menu__item.menu__item--sign-in Sign in
+        .menu__item.menu__item--friendrequests.menu__item--theme-hide Friend requests
+          .menu__badge.menu__badge--for-friendrequests.badge
+        .friendrequest-list
+        .menu__item.menu__item--theme-hide.current-user
+        .menu__item.menu__item--sign-out.menu__item--theme-hide Sign Out
     .content
       .friend-popover(
         data-user-id = ""
