@@ -10,7 +10,7 @@ const resultItem = ({ _id, email, nickname }) => `
     <div class="search__user-name">${nickname}</div>
     <div class="search__user-email">${email}</div>
     <div class="search__user-relationship">
-      <button class="button button--friendrequest">Add</button>
+      <button class="search__friendrequest-button button">Add</button>
     </div>
   </div>`;
 
