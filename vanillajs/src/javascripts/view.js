@@ -187,6 +187,7 @@ export default class View {
       if (!text || !roomId) return;
 
       this.$chatInput.value = '';
+      this.$chatBody.scrollTop = this.$chatBody.scrollHeight - this.$chatBody.clientHeight;
       handler(roomId, text);
     });
   }
@@ -323,7 +324,10 @@ export default class View {
    * @param {Message} message
    */
   addMessage(message) {
+    const isScrolled = this.$chatBody.scrollTop < this.$chatBody.scrollHeight - this.$chatBody.clientHeight;
+
     this.$chatBody.insertAdjacentHTML('beforeend', this.template.message(message));
+    if (!isScrolled) this.$chatBody.scrollTop = this.$chatBody.scrollHeight - this.$chatBody.clientHeight;
   }
 
   /**
