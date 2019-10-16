@@ -7,6 +7,7 @@ export default class ViewUserSelectModal {
   constructor(template, { modal }) {
     this.template = template;
     this.$modal = modal;
+    this.$modalContent = modal.querySelector('.modal__content');
     this.$confirmButton = modal.querySelector('.user-select__confirm-button');
     this.$userList = modal.querySelector('.user-select__user-list');
     this.$selectedUserList = modal.querySelector('.user-select__selected-user-list');
@@ -59,17 +60,31 @@ export default class ViewUserSelectModal {
    * @param {Array} users array of user
    */
   render(users) {
-    this.$modal.classList.add('modal--active');
     this.$userList.innerHTML = users.reduce((renderedHTML, user) => renderedHTML + this.template.userInUserSelect(user), '');
+    this.$modal.classList.remove('modal--hidden');
+    this.$modal.classList.add('modal--visible');
+    this.$modal.classList.add('modal--fade-in');
+    this.$modal.addEventListener('animationstart', () => {
+      this.$modalContent.classList.remove('modal__content--collapse');
+    }, { once: true });
+    this.$modal.addEventListener('animationend', ({ currentTarget }) => {
+      currentTarget.classList.remove('modal--fade-in');
+    }, { once: true });
   }
 
   /**
    * clear modal
    */
   clear() {
-    this.$modal.classList.remove('modal--active');
-    this.$userList.innerHTML = '';
-    this.$selectedUserList.innerHTML = '';
+    this.$modal.classList.add('modal--fade-out');
+    this.$modalContent.classList.add('modal__content--collapse');
+    this.$modal.addEventListener('animationend', ({ currentTarget }) => {
+      currentTarget.classList.remove('modal--visible');
+      currentTarget.classList.remove('modal--fade-out');
+      currentTarget.classList.add('modal--hidden');
+      this.$userList.innerHTML = '';
+      this.$selectedUserList.innerHTML = '';
+    }, { once: true });
   }
 
   /**

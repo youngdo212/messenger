@@ -6,6 +6,7 @@ export default class ViewAuthModal {
    */
   constructor({ modal, toggle }) {
     this.$modal = modal;
+    this.$modalContent = modal.querySelector('.modal__content');
     this.$toggle = toggle;
     this.$modalContentContainer = modal.querySelector('.carousel__inner');
     this.$modalContentSliderNext = modal.querySelector('.carousel__slider--next');
@@ -37,14 +38,28 @@ export default class ViewAuthModal {
    * open Modal
    */
   open() {
-    this.$modal.classList.add('modal--active');
+    this.$modal.classList.remove('modal--hidden');
+    this.$modal.classList.add('modal--visible');
+    this.$modal.classList.add('modal--fade-in');
+    this.$modal.addEventListener('animationstart', () => {
+      this.$modalContent.classList.remove('modal__content--collapse');
+    }, { once: true });
+    this.$modal.addEventListener('animationend', ({ currentTarget }) => {
+      currentTarget.classList.remove('modal--fade-in');
+    }, { once: true });
   }
 
   /**
    * close Modal
    */
   close() {
-    this.$modalContentContainer.classList.remove('carousel__inner--next');
-    this.$modal.classList.remove('modal--active');
+    this.$modal.classList.add('modal--fade-out');
+    this.$modalContent.classList.add('modal__content--collapse');
+    this.$modal.addEventListener('animationend', ({ currentTarget }) => {
+      currentTarget.classList.remove('modal--visible');
+      currentTarget.classList.remove('modal--fade-out');
+      currentTarget.classList.add('modal--hidden');
+      this.$modalContentContainer.classList.remove('carousel__inner--next');
+    }, { once: true });
   }
 }

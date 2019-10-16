@@ -49,9 +49,9 @@ html
         .chat__footer
           form.chat__form(action="/")
             input.chat__input
-    .modal.modal--auth
+    .modal.modal--auth.modal--hidden
       .modal__dialog
-        .modal__content.carousel
+        .modal__content.modal__content--collapse.carousel
           .carousel__inner
             .carousel__item.auth
               .auth__header
@@ -102,9 +102,9 @@ html
                     )
                   button.form__button.button.button--theme-round(type="submit") Sign up
               .carousel__slider.carousel__slider--back #{'<'} Sign in
-    .modal.modal--user-select
+    .modal.modal--user-select.modal--hidden
       .modal__dialog
-        .modal__content.user-select
+        .modal__content.modal__content--collapse.user-select
           .user-select__header Select User
           .user-select__selected-user-list
           .user-select__user-list

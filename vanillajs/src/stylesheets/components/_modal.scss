@@ -1,13 +1,24 @@
 .modal {
-  display: none;
   position: absolute;
   top: 0px; left: 0px;
   width: 100vw; height: 100vh;
   background: rgba(0, 0, 0, 0.2);
   z-index: 3;
+  
+  &--hidden {
+    display: none;
+  }
 
-  &--active {
+  &--visible {
     display: block;
+  }
+
+  &--fade-in {
+    @include fade-in(.3s);
+  }
+
+  &--fade-out {
+    @include fade-out(.3s);
   }
 }
 
@@ -20,4 +31,9 @@
 .modal__content {
   border-radius: 5px;
   overflow: hidden;
+  transition: transform .3s;
+  
+  &--collapse {
+    transform: translate3d(0, -50px, 0);
+  }
 }
